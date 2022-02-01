@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { ThemeProvider } from 'styled-components';
 
 // components
-import App from './App';
+import App from './components/App/App';
 
 // styled components
 import GlobalStyle from './styles/GlobalStyle';

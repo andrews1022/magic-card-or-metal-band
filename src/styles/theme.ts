@@ -20,18 +20,18 @@ const theme = {
 		black: '#000'
 	},
 	greys: {
-		// add any greys here
+		nightRider: '#323232',
+		nero: '#191919'
 	},
 	colors: {
-		primary: {
-			// add primary colors here
-		},
-		secondary: {
-			// add secondary colors here
-		}
+		// color palette from: https://colorhunt.co/palette/313552b8405e2eb086eee6ce
+		bunting: '#313552',
+		rouge: '#b8405e',
+		jungleGreen: '#2eb086',
+		halfPearlLusta: '#eee6ce'
 	},
 	fonts: {
-		// add font-families here
+		fontRoboto: "'Roboto', sans-serif"
 	},
 	fontWeights: {
 		thin: 100,

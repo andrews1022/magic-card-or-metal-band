@@ -27,6 +27,8 @@ const Game = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
+		const source = axios.CancelToken.source();
+
 		// randomly decide between either magic-card or metal-band on component mount
 		const chosenValue = Math.random() < 0.5 ? MAGIC_CARD : METAL_BAND;
 		dispatch(setCorrectAnswer(chosenValue));
@@ -63,6 +65,8 @@ const Game = () => {
 			// dispatch(setIsLoading());
 
 			const getBand = () => {
+				// archspire band id: 7F9ZL4TJNr8AoU0UUQX8ih
+
 				// prepare the current band data as required
 				const currentBand: CurrentBand = {
 					bandName: 'Archspire',
@@ -76,6 +80,11 @@ const Game = () => {
 
 			getBand();
 		}
+
+		// cleanup
+		return () => {
+			source.cancel();
+		};
 	}, []);
 
 	const answerSelectionHandler = () => {

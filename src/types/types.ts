@@ -1,16 +1,3 @@
-// global
-// type CurrentCard = {
-// 	cardName: string;
-// 	imageUri: string;
-// 	setName: string;
-// };
-
-// type CurrentBand = {
-// 	bandName: string;
-// 	picture: string;
-// 	whereBandIsFrom: string;
-// };
-
 // valid answers
 export type MagicCardType = 'magic-card';
 export type MetalBandType = 'metal-band';
@@ -29,7 +16,7 @@ export type CurrentBand = {
 	whereBandIsFrom: string;
 };
 
-// state
+// game state
 export type GameState = {
 	isGameBeingPlayed: boolean;
 	currentCardData: CurrentCard;
@@ -41,11 +28,16 @@ export type GameState = {
 	hasSelected: boolean;
 };
 
+export type CredentialsState = {
+	authToken: string;
+};
+
 export type AppState = {
+	credentials: CredentialsState;
 	game: GameState;
 };
 
-// actions
+// game actions
 export type GameActions =
 	| { type: 'LOADING' }
 	| { type: 'START_GAME' }
@@ -53,6 +45,9 @@ export type GameActions =
 	| { type: 'SET_CURRENT_CARD_DATA'; payload: CurrentCard }
 	| { type: 'SET_CURRENT_BAND_DATA'; payload: CurrentBand }
 	| { type: 'FAILED_TO_FETCH' };
+
+// credentials actions
+export type CredentialsActions = { type: 'SET_AUTH_TOKEN'; payload: string };
 
 // api responses
 export type ScryfallResponse = {

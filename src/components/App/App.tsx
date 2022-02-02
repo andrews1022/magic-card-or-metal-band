@@ -60,12 +60,12 @@ const App = () => {
 				data: 'grant_type=client_credentials'
 			})
 				.then((resp) => {
-					console.log(resp);
+					// console.log(resp);
 
 					dispatch(setAuthToken(resp.data.access_token));
 				})
-				.catch((error) => {
-					console.log(error);
+				.catch(() => {
+					// console.log(error);
 				});
 		};
 

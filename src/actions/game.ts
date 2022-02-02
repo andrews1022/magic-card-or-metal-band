@@ -1,3 +1,3 @@
 import { GameActions } from '../types/types';
 
-export const initGame = (): GameActions => ({ type: 'INIT' });
+export const startGame = (): GameActions => ({ type: 'START_GAME' });

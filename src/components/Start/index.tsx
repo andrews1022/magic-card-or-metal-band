@@ -5,13 +5,13 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 
 // redux
 import { useDispatch } from 'react-redux';
-import { initGame } from '../../actions/game';
+import { startGame } from '../../actions/game';
 
 const Start = () => {
 	const dispatch = useDispatch();
 
-	const initGameHandler = () => {
-		dispatch(initGame());
+	const startGameHandler = () => {
+		dispatch(startGame());
 	};
 
 	return (
@@ -23,7 +23,7 @@ const Start = () => {
 				generated name is either a card from Magic: The Gathering, or a Metal Band.
 			</p>
 
-			<button onClick={initGameHandler} type='button'>
+			<button onClick={startGameHandler} type='button'>
 				<PlayArrowIcon />
 				Play
 			</button>

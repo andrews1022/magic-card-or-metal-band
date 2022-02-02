@@ -1,6 +1,6 @@
 // valid answers
-export type MagicCardType = 'magic-card';
-export type MetalBandType = 'metal-band';
+type MagicCardType = 'magic-card';
+type MetalBandType = 'metal-band';
 export type ValidAnswers = MagicCardType | MetalBandType;
 
 // current data
@@ -13,7 +13,6 @@ export type CurrentCard = {
 export type CurrentBand = {
 	bandName: string;
 	picture: string;
-	whereBandIsFrom: string;
 };
 
 // game state
@@ -162,4 +161,24 @@ export type ScryfallResponse = {
 	};
 };
 
-export type SpotifyResponse = {};
+type SpotifyBandImage = { url: string; height: number; width: number };
+
+export type SpotifyResponse = {
+	data: {
+		external_urls: {
+			spotify: string;
+		};
+		followers: {
+			href: string;
+			total: number;
+		};
+		genres: string[];
+		href: string;
+		id: string;
+		images: SpotifyBandImage[];
+		name: string;
+		popularity: number;
+		type: string;
+		uri: string;
+	};
+};

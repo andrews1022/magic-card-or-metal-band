@@ -18,11 +18,23 @@ import {
 import { MAGIC_CARD, METAL_BAND } from '../../constants/constants';
 
 // types
-import { AppState, CurrentBand, CurrentCard, GameState, ScryfallResponse } from '../../types/types';
-import { scryfallUrl } from '../../api/api';
+import {
+	AppState,
+	CredentialsState,
+	CurrentBand,
+	CurrentCard,
+	GameState,
+	ScryfallResponse,
+	SpotifyResponse
+} from '../../types/types';
+import { scryfallUrl, spotifyApiUrl } from '../../api/api';
 
 const Game = () => {
 	const game = useSelector<CombinedState<AppState>, GameState>((state) => state.game);
+
+	const credentials = useSelector<CombinedState<AppState>, CredentialsState>(
+		(state) => state.credentials
+	);
 
 	const dispatch = useDispatch();
 
@@ -62,20 +74,30 @@ const Game = () => {
 
 		if (chosenValue === 'metal-band') {
 			// set is loading to true (temporarily)
-			// dispatch(setIsLoading());
+			dispatch(setIsLoading());
 
-			const getBand = () => {
-				// archspire band id: 7F9ZL4TJNr8AoU0UUQX8ih
+			const getBand = async () => {
+				const testId = '7F9ZL4TJNr8AoU0UUQX8ih';
 
-				// prepare the current band data as required
-				const currentBand: CurrentBand = {
-					bandName: 'Archspire',
-					picture: 'https://i.scdn.co/image/ab6761670000ecd4af5b0e55e0384fbd21900944',
-					whereBandIsFrom: 'Vancouver, BC'
-				};
+				try {
+					const { data }: SpotifyResponse = await axios.get(
+						`${spotifyApiUrl}v1/artists/${testId}`,
+						{
+							headers: { Authorization: `Bearer ${credentials.authToken}` }
+						}
+					);
 
-				// dispatch the action to set the current band data
-				dispatch(setCurrentBandData(currentBand));
+					// prepare the current band data as required
+					const currentBand: CurrentBand = {
+						bandName: data.name,
+						picture: data.images[0].url
+					};
+
+					// dispatch the action to set the current band data
+					dispatch(setCurrentBandData(currentBand));
+				} catch (error) {
+					dispatch(setFailedToFetch());
+				}
 			};
 
 			getBand();
@@ -122,18 +144,15 @@ const Game = () => {
 									{game.correctAnswer.replace('-', ' ')}!
 								</h2>
 
-								{game.currentCardData.setName ? (
+								{/* {game.currentCardData.setName ? (
 									<p>
 										{game.currentCardData.cardName} is a card from {game.currentCardData.setName}
 									</p>
-								) : null}
+								) : null} */}
 
-								{game.currentBandData.whereBandIsFrom ? (
-									<p>
-										{game.currentBandData.bandName} is a band from{' '}
-										{game.currentBandData.whereBandIsFrom}
-									</p>
-								) : null}
+								{/* {game.currentBandData.bandName ? (
+									<p>{game.currentBandData.bandName} is a metal band!</p>
+								) : null} */}
 
 								<img
 									src={game.currentCardData.imageUri || game.currentBandData.picture}

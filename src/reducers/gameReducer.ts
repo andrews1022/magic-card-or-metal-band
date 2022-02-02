@@ -11,8 +11,7 @@ const intialGameState: GameState = {
 	},
 	currentBandData: {
 		bandName: '',
-		picture: '',
-		whereBandIsFrom: ''
+		picture: ''
 	},
 	correctAnswer: '',
 	isLoading: false,

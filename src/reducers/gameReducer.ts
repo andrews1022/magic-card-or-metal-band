@@ -22,7 +22,10 @@ const intialGameState: GameState = {
 const gameReducer = (state: GameState = intialGameState, action: GameActions): GameState => {
 	switch (action.type) {
 		case 'INIT':
-			return state;
+			return {
+				...state,
+				isGameBeingPlayed: true
+			};
 
 		default:
 			return state;

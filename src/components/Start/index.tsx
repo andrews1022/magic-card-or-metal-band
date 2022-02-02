@@ -1,11 +1,32 @@
 import React from 'react';
 
-type StartProps = {};
+// material icons
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 
-const Start = (props: StartProps) => {
+// redux
+import { useDispatch } from 'react-redux';
+import { initGame } from '../../actions/game';
+
+const Start = () => {
+	const dispatch = useDispatch();
+
+	const initGameHandler = () => {
+		dispatch(initGame());
+	};
+
 	return (
-		<div>
-			<h2>Hello from the Start component!</h2>
+		<div className='wrapper'>
+			<h1>Magic Card or Metal Band</h1>
+
+			<p>
+				Welcome to Magic Card or Metal Band! This a simple game where you must decide if the
+				generated name is either a card from Magic: The Gathering, or a Metal Band.
+			</p>
+
+			<button onClick={initGameHandler} type='button'>
+				<PlayArrowIcon />
+				Play
+			</button>
 		</div>
 	);
 };

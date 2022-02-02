@@ -3,20 +3,10 @@
 import { GameActions, GameState } from '../types/types';
 
 const intialGameState: GameState = {
-	isGameBeingPlayed: false,
-	currentCardData: {
-		cardName: '',
-		imageUri: '',
-		setName: ''
-	},
-	currentBandData: {
-		bandName: '',
-		picture: '',
-		whereBandIsFrom: ''
-	},
 	correctAnswer: false,
-	wasGuessedCorrectly: false,
-	hasSelected: false
+	hasSelected: false,
+	isGameBeingPlayed: false,
+	wasGuessedCorrectly: false
 };
 
 const gameReducer = (state: GameState = intialGameState, action: GameActions): GameState => {

@@ -11,21 +11,27 @@
 // 	whereBandIsFrom: string;
 // };
 
+// state
 export type GameState = {
-	isGameBeingPlayed: boolean;
-	currentCardData: {
-		cardName: string;
-		imageUri: string;
-		setName: string;
-	};
-	currentBandData: {
-		bandName: string;
-		picture: string;
-		whereBandIsFrom: string;
-	};
 	correctAnswer: boolean;
-	wasGuessedCorrectly: boolean;
 	hasSelected: boolean;
+	isGameBeingPlayed: boolean;
+	wasGuessedCorrectly: boolean;
 };
 
-export type GameActions = { type: 'INIT' } | { type: 'SET_CARD_DATA' } | { type: 'SET_BAND_DATA' };
+export type CardState = {
+	cardName: string;
+	imageUri: string;
+	setName: string;
+};
+
+export type BandState = {
+	bandName: string;
+	picture: string;
+	whereBandIsFrom: string;
+};
+
+// actions
+export type GameActions = { type: 'INIT' };
+export type CardActions = { type: 'SET_CARD_DATA' };
+export type BandActions = { type: 'SET_BAND_DATA' };

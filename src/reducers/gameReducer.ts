@@ -14,7 +14,7 @@ const intialGameState: GameState = {
 		picture: '',
 		whereBandIsFrom: ''
 	},
-	correctAnswer: false,
+	correctAnswer: '',
 	wasGuessedCorrectly: false,
 	hasSelected: false
 };
@@ -25,6 +25,12 @@ const gameReducer = (state: GameState = intialGameState, action: GameActions): G
 			return {
 				...state,
 				isGameBeingPlayed: true
+			};
+
+		case 'SET_CORRECT_ANSWER':
+			return {
+				...state,
+				correctAnswer: action.payload
 			};
 
 		default:

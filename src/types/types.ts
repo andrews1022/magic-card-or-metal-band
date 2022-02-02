@@ -11,6 +11,12 @@
 // 	whereBandIsFrom: string;
 // };
 
+// valid answers
+export type MagicCardType = 'magic-card';
+export type MetalBandType = 'metal-band';
+export type ValidAnswers = MagicCardType | MetalBandType;
+
+// state
 export type GameState = {
 	isGameBeingPlayed: boolean;
 	currentCardData: {
@@ -23,7 +29,7 @@ export type GameState = {
 		picture: string;
 		whereBandIsFrom: string;
 	};
-	correctAnswer: boolean;
+	correctAnswer: string;
 	wasGuessedCorrectly: boolean;
 	hasSelected: boolean;
 };
@@ -32,7 +38,7 @@ export type AppState = {
 	game: GameState;
 };
 
+// actions
 export type GameActions =
 	| { type: 'START_GAME' }
-	| { type: 'SET_CARD_DATA' }
-	| { type: 'SET_BAND_DATA' };
+	| { type: 'SET_CORRECT_ANSWER'; payload: ValidAnswers };

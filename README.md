@@ -31,7 +31,7 @@ State
 
 Game
 
-- Decide randomly between picking an Magic Card or Metal Band
+- Decide randomly between picking an Magic Card or Metal Band: `magic-card` or `metal-band`
 
 - If Magic Card:
 

@@ -15,7 +15,7 @@ const Start = () => {
 	};
 
 	return (
-		<div className='wrapper'>
+		<div className='start-wrapper'>
 			<h1>Magic Card or Metal Band</h1>
 
 			<p>

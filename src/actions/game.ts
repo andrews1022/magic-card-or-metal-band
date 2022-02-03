@@ -1,4 +1,7 @@
+// redux types
 import { Dispatch } from 'redux';
+
+// custom types
 import { CurrentBand, CurrentCard, GameActions, ValidAnswers } from '../types/types';
 
 export const startGame = (): GameActions => ({ type: 'START_GAME' });
@@ -21,3 +24,5 @@ export const setCurrentBandData = (obj: CurrentBand) => async (dispatch: Dispatc
 export const setFailedToFetch = (): GameActions => ({ type: 'FAILED_TO_FETCH' });
 
 export const setAnswer = (bool: boolean): GameActions => ({ type: 'SET_ANSWER', payload: bool });
+
+export const restartGame = (): GameActions => ({ type: 'RESTART_GAME' });

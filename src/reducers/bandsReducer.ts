@@ -8,14 +8,16 @@ const initialBandsState: BandsState = {
 
 const bandsReducer = (state: BandsState = initialBandsState, action: BandsActions): BandsState => {
 	switch (action.type) {
-		case 'SET_BAND_DATA':
+		case 'SET_BAND_DATA': {
 			return {
 				...state,
 				bands: action.payload
 			};
+		}
 
-		default:
+		default: {
 			return state;
+		}
 	}
 };
 

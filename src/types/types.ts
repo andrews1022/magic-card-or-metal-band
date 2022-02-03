@@ -50,6 +50,7 @@ export type GameActions =
 	| { type: 'SET_CURRENT_CARD_DATA'; payload: CurrentCard }
 	| { type: 'SET_CURRENT_BAND_DATA'; payload: CurrentBand }
 	| { type: 'FAILED_TO_FETCH' }
+	| { type: 'RESTART_GAME' }
 	| { type: 'SET_ANSWER'; payload: boolean };
 
 // credentials actions

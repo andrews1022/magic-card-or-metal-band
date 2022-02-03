@@ -10,6 +10,7 @@ import { scryfallUrl, spotifyApiUrl } from '../../api/api';
 
 // actions
 import {
+	restartGame,
 	setAnswer,
 	setCorrectAnswer,
 	setCurrentBandData,
@@ -44,10 +45,7 @@ const Game = () => {
 
 	const dispatch = useDispatch();
 
-	// decide either magic card or metal band, then make appropiate api get request
-	useEffect(() => {
-		const source = axios.CancelToken.source();
-
+	const initGame = () => {
 		// randomly decide between either magic-card or metal-band on component mount
 		const chosenValue = Math.random() < 0.5 ? MAGIC_CARD : METAL_BAND;
 		dispatch(setCorrectAnswer(chosenValue));
@@ -109,6 +107,13 @@ const Game = () => {
 
 			getBand();
 		}
+	};
+
+	// decide either magic card or metal band, then make appropiate api get request
+	useEffect(() => {
+		const source = axios.CancelToken.source();
+
+		initGame();
 
 		// cleanup
 		return () => {
@@ -129,7 +134,11 @@ const Game = () => {
 		}
 	};
 
-	const gameRestartHandler = () => {};
+	const gameRestartHandler = () => {
+		dispatch(restartGame());
+
+		initGame();
+	};
 
 	return (
 		<div className='outer-wrapper'>

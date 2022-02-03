@@ -22,43 +22,56 @@ const intialGameState: GameState = {
 
 const gameReducer = (state: GameState = intialGameState, action: GameActions): GameState => {
 	switch (action.type) {
-		case 'FAILED_TO_FETCH':
+		case 'FAILED_TO_FETCH': {
 			return {
 				...state,
 				failedToFetch: true
 			};
+		}
 
-		case 'SET_ANSWER':
+		case 'RESTART_GAME': {
+			return {
+				...intialGameState,
+				isGameBeingPlayed: true
+			};
+		}
+
+		case 'SET_ANSWER': {
 			return {
 				...state,
 				wasGuessedCorrectly: action.payload,
 				hasSelected: true
 			};
+		}
 
-		case 'LOADING':
+		case 'LOADING': {
 			return {
 				...state,
 				isLoading: true
 			};
+		}
 
-		case 'START_GAME':
+		case 'START_GAME': {
 			return {
 				...state,
 				isGameBeingPlayed: true
 			};
+		}
 
-		case 'SET_CORRECT_ANSWER':
+		case 'SET_CORRECT_ANSWER': {
 			return {
 				...state,
 				correctAnswer: action.payload
 			};
+		}
 
-		case 'SET_CURRENT_CARD_DATA':
+		case 'SET_CURRENT_CARD_DATA': {
 			return {
 				...state,
 				currentCardData: action.payload,
 				isLoading: false
 			};
+		}
 
 		case 'SET_CURRENT_BAND_DATA': {
 			return {
@@ -68,8 +81,9 @@ const gameReducer = (state: GameState = intialGameState, action: GameActions): G
 			};
 		}
 
-		default:
+		default: {
 			return state;
+		}
 	}
 };
 

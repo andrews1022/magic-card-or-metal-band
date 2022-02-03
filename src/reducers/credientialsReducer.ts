@@ -11,13 +11,15 @@ const credentialsReducer = (
 	action: CredentialsActions
 ): CredentialsState => {
 	switch (action.type) {
-		case 'SET_AUTH_TOKEN':
+		case 'SET_AUTH_TOKEN': {
 			return {
 				authToken: action.payload
 			};
+		}
 
-		default:
+		default: {
 			return state;
+		}
 	}
 };
 

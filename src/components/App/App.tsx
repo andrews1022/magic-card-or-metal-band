@@ -4,7 +4,6 @@ import React, { useEffect } from 'react';
 
 // axios
 import axios from 'axios';
-import { Buffer } from 'buffer';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,8 +20,14 @@ import { spotifyTokenUrl } from '../../api/api';
 import { setBandData } from '../../actions/bands';
 import { setAuthToken } from '../../actions/credentials';
 
-// data (for local storage)
+// custom hooks
+import useAuth from '../../hooks/useAuth';
+
+// data
 import bands from '../../data/bands';
+
+// constants
+import { LOCAL_STORAGE_KEY } from '../../constants/constants';
 
 // types
 import { AppState, GameState } from '../../types/types';
@@ -36,9 +41,7 @@ const App = () => {
 	useEffect(() => {
 		const source = axios.CancelToken.source();
 
-		const authorizationHeader = `Basic ${Buffer.from(
-			`${process.env.REACT_APP_SPOTIFY_CLIENT_ID}:${process.env.REACT_APP_SPOTIFY_CLIENT_SECRET}`
-		).toString('base64')}`;
+		const authorizationHeader = useAuth();
 
 		const setSpotifyAuthToken = async () => {
 			axios(spotifyTokenUrl, {
@@ -68,12 +71,12 @@ const App = () => {
 	// load / set band data from local storage
 	useEffect(() => {
 		const checkLocalStorage = () => {
-			const bandsFromLocalStorage = localStorage.getItem('bands');
+			const bandsFromLocalStorage = localStorage.getItem(LOCAL_STORAGE_KEY);
 
 			// console.log(bandsFromLocalStorage);
 			if (!bandsFromLocalStorage) {
 				// save bands to local storage
-				localStorage.setItem('bands', JSON.stringify(bands));
+				localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(bands));
 
 				// save bands to redux store'
 				dispatch(setBandData(bands));
@@ -84,6 +87,11 @@ const App = () => {
 		};
 
 		checkLocalStorage();
+
+		// cleanup
+		return () => {
+			localStorage.removeItem(LOCAL_STORAGE_KEY);
+		};
 	}, []);
 
 	return <div className='app-wrapper'>{game.isGameBeingPlayed ? <Game /> : <Start />}</div>;

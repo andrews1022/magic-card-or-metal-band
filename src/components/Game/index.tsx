@@ -3,10 +3,18 @@ import axios from 'axios';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
-import { CombinedState } from 'redux';
 
 // api
 import { scryfallUrl, spotifyApiUrl } from '../../api/api';
+
+// components
+import Answer from '../Answer';
+import Error from '../Error';
+import Loading from '../Loading';
+
+// custom hooks
+import useBand from '../../hooks/useBand';
+import useName from '../../hooks/useName';
 
 // actions
 import {
@@ -24,8 +32,8 @@ import { MAGIC_CARD, METAL_BAND } from '../../constants/constants';
 
 // types
 import {
-	AppState,
 	BandsState,
+	CombinedAppState,
 	CredentialsState,
 	CurrentBand,
 	CurrentCard,
@@ -35,16 +43,18 @@ import {
 } from '../../types/types';
 
 const Game = () => {
-	const bands = useSelector<CombinedState<AppState>, BandsState>((state) => state.bands);
+	// grabbing various pieces of state from redux store
+	const bands = useSelector<CombinedAppState, BandsState>((state) => state.bands);
+	const credentials = useSelector<CombinedAppState, CredentialsState>((state) => state.credentials);
+	const game = useSelector<CombinedAppState, GameState>((state) => state.game);
 
-	const credentials = useSelector<CombinedState<AppState>, CredentialsState>(
-		(state) => state.credentials
-	);
-
-	const game = useSelector<CombinedState<AppState>, GameState>((state) => state.game);
-
+	// dispatch hook call
 	const dispatch = useDispatch();
 
+	// set some vars to make jsx cleaner
+	const nameToUse = useName();
+
+	// init game fn (run on component mount and in gameRestartHandler function below)
 	const initGame = () => {
 		// randomly decide between either magic-card or metal-band on component mount
 		const chosenValue = Math.random() < 0.5 ? MAGIC_CARD : METAL_BAND;
@@ -69,6 +79,8 @@ const Game = () => {
 					// dispatch the action to set the current card data
 					dispatch(setCurrentCardData(currentCard));
 				} catch (error) {
+					console.log(error);
+
 					dispatch(setFailedToFetch());
 				}
 			};
@@ -79,12 +91,11 @@ const Game = () => {
 
 		if (chosenValue === 'metal-band') {
 			const getBand = async () => {
-				const randomBand = bands.bands[Math.floor(Math.random() * bands.bands.length)];
-				const formattedRandomBand = randomBand.toLowerCase().replaceAll(' ', '%20');
+				const randomBand = useBand(bands);
 
 				try {
 					const { data }: SpotifySearchResponse = await axios.get(
-						`${spotifyApiUrl}?q=${formattedRandomBand}&type=artist`,
+						`${spotifyApiUrl}?q=${randomBand}&type=artist`,
 						{
 							headers: { Authorization: `Bearer ${credentials.authToken}` }
 						}
@@ -101,6 +112,8 @@ const Game = () => {
 					// dispatch the action to set the current band data
 					dispatch(setCurrentBandData(currentBand));
 				} catch (error) {
+					console.log(error);
+
 					dispatch(setFailedToFetch());
 				}
 			};
@@ -121,17 +134,11 @@ const Game = () => {
 		};
 	}, []);
 
-	const answerSelectionHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-		const { value } = e.currentTarget.dataset;
+	const answerSelectionHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+		const { value } = event.currentTarget.dataset;
 		const { correctAnswer } = game;
 
-		if (value === correctAnswer) {
-			// the correct button was clicked
-			dispatch(setAnswer(true));
-		} else {
-			// the incorrect button was clicked
-			dispatch(setAnswer(false));
-		}
+		return value === correctAnswer ? dispatch(setAnswer(true)) : dispatch(setAnswer(false));
 	};
 
 	const gameRestartHandler = () => {
@@ -140,53 +147,26 @@ const Game = () => {
 		initGame();
 	};
 
+	// return either of these first if applicable
+	if (game.failedToFetch) return <Error />;
+
+	if (game.isLoading) return <Loading />;
+
 	return (
-		<div className='outer-wrapper'>
-			{game.failedToFetch ? (
-				<p>Woops! Something went wrong there. Please refresh and try again.</p>
-			) : (
-				<div className='inner-wrapper'>
-					{game.isLoading ? (
-						<h1>Loading...</h1>
-					) : (
-						<>
-							<h2>
-								Is {game.currentCardData.cardName || game.currentBandData.bandName} a Magic Card, or
-								a Metal Band?
-							</h2>
+		<div className='game-wrapper'>
+			<h1>Is {nameToUse} a Magic Card, or a Metal Band?</h1>
 
-							<div className='btn-row'>
-								<button data-value={MAGIC_CARD} onClick={answerSelectionHandler} type='button'>
-									Magic Card
-								</button>
-								<button data-value={METAL_BAND} onClick={answerSelectionHandler} type='button'>
-									Metal Band
-								</button>
-							</div>
+			<div className='btn-row'>
+				<button data-value={MAGIC_CARD} onClick={answerSelectionHandler} type='button'>
+					Magic Card
+				</button>
 
-							{game.hasSelected ? (
-								<div className='answer-wrapper'>
-									<p>Your answer was {game.wasGuessedCorrectly ? 'Correct!' : 'Incorrect!'}</p>
+				<button data-value={METAL_BAND} onClick={answerSelectionHandler} type='button'>
+					Metal Band
+				</button>
+			</div>
 
-									<h2>
-										{game.currentCardData.cardName || game.currentBandData.bandName} is a{' '}
-										{game.correctAnswer.replace('-', ' ')}!
-									</h2>
-
-									<img
-										src={game.currentCardData.imageUri || game.currentBandData.picture}
-										alt={`${game.currentCardData.cardName || game.currentBandData.bandName}`}
-									/>
-
-									<button onClick={gameRestartHandler} type='button'>
-										{game.wasGuessedCorrectly ? 'Another One!' : 'Try Again?'}
-									</button>
-								</div>
-							) : null}
-						</>
-					)}
-				</div>
-			)}
+			{game.hasSelected ? <Answer gameRestartHandler={gameRestartHandler} /> : null}
 		</div>
 	);
 };

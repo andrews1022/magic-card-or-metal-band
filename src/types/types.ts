@@ -1,3 +1,5 @@
+import { CombinedState } from 'redux';
+
 // valid answers
 type MagicCardType = 'magic-card';
 type MetalBandType = 'metal-band';
@@ -41,6 +43,9 @@ export type AppState = {
 	credentials: CredentialsState;
 	game: GameState;
 };
+
+// this is used for useSelector hook calls
+export type CombinedAppState = CombinedState<AppState>;
 
 // game actions
 export type GameActions =

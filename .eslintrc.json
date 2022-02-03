@@ -36,6 +36,7 @@
 		"keyword-spacing": "warn",
 		"linebreak-style": "off",
 		"max-len": "warn",
+		"no-console": "off",
 		"no-confusing-arrow": "off",
 		"no-mixed-spaces-and-tabs": "off",
 		"no-multiple-empty-lines": "warn",

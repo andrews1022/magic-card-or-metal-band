@@ -15,6 +15,11 @@ export type CurrentBand = {
 	picture: string;
 };
 
+// band state
+export type BandsState = {
+	bands: string[];
+};
+
 // game state
 export type GameState = {
 	isGameBeingPlayed: boolean;
@@ -32,6 +37,7 @@ export type CredentialsState = {
 };
 
 export type AppState = {
+	bands: BandsState;
 	credentials: CredentialsState;
 	game: GameState;
 };
@@ -47,6 +53,9 @@ export type GameActions =
 
 // credentials actions
 export type CredentialsActions = { type: 'SET_AUTH_TOKEN'; payload: string };
+
+// band actions
+export type BandsActions = { type: 'SET_BAND_DATA'; payload: string[] };
 
 // api responses
 export type ScryfallResponse = {
@@ -163,22 +172,44 @@ export type ScryfallResponse = {
 
 type SpotifyBandImage = { url: string; height: number; width: number };
 
-export type SpotifyResponse = {
+export type SpotifyBandResponse = {
+	external_urls: {
+		spotify: string;
+	};
+	followers: {
+		href: string;
+		total: number;
+	};
+	genres: string[];
+	href: string;
+	id: string;
+	images: SpotifyBandImage[];
+	name: string;
+	popularity: number;
+	type: string;
+	uri: string;
+};
+
+type SpotifySearchResponseFields = {
+	href: string;
+	items: never[] | {}[];
+	limit: number;
+	next: string | null;
+	offset: number;
+	previous: string | null;
+	total: number;
+};
+
+export type SpotifySearchResponse = {
 	data: {
-		external_urls: {
-			spotify: string;
-		};
-		followers: {
+		artists: {
 			href: string;
+			items: never[] | SpotifyBandResponse[];
+			limit: number;
+			next: string | null;
+			offset: number;
+			previous: string | null;
 			total: number;
 		};
-		genres: string[];
-		href: string;
-		id: string;
-		images: SpotifyBandImage[];
-		name: string;
-		popularity: number;
-		type: string;
-		uri: string;
 	};
 };

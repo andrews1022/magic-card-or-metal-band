@@ -5,6 +5,9 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { CombinedState } from 'redux';
 
+// api
+import { scryfallUrl, spotifyApiUrl } from '../../api/api';
+
 // actions
 import {
 	setCorrectAnswer,
@@ -20,24 +23,27 @@ import { MAGIC_CARD, METAL_BAND } from '../../constants/constants';
 // types
 import {
 	AppState,
+	BandsState,
 	CredentialsState,
 	CurrentBand,
 	CurrentCard,
 	GameState,
 	ScryfallResponse,
-	SpotifyResponse
+	SpotifySearchResponse
 } from '../../types/types';
-import { scryfallUrl, spotifyApiUrl } from '../../api/api';
 
 const Game = () => {
-	const game = useSelector<CombinedState<AppState>, GameState>((state) => state.game);
+	const bands = useSelector<CombinedState<AppState>, BandsState>((state) => state.bands);
 
 	const credentials = useSelector<CombinedState<AppState>, CredentialsState>(
 		(state) => state.credentials
 	);
 
+	const game = useSelector<CombinedState<AppState>, GameState>((state) => state.game);
+
 	const dispatch = useDispatch();
 
+	// decide either magic card or metal band, then make appropiate api get request
 	useEffect(() => {
 		const source = axios.CancelToken.source();
 
@@ -45,10 +51,10 @@ const Game = () => {
 		const chosenValue = Math.random() < 0.5 ? MAGIC_CARD : METAL_BAND;
 		dispatch(setCorrectAnswer(chosenValue));
 
-		if (chosenValue === 'magic-card') {
-			// set is loading to true (temporarily)
-			dispatch(setIsLoading());
+		// set is loading to true (temporarily)
+		dispatch(setIsLoading());
 
+		if (chosenValue === 'magic-card') {
 			// fetch a magic card from scryfall
 			const getMagicCard = async () => {
 				try {
@@ -73,29 +79,31 @@ const Game = () => {
 		}
 
 		if (chosenValue === 'metal-band') {
-			// set is loading to true (temporarily)
-			dispatch(setIsLoading());
-
 			const getBand = async () => {
-				const testId = '7F9ZL4TJNr8AoU0UUQX8ih';
+				const randomBand = bands.bands[Math.floor(Math.random() * bands.bands.length)];
+				const formattedRandomBand = randomBand.toLowerCase().replaceAll(' ', '%20');
 
 				try {
-					const { data }: SpotifyResponse = await axios.get(
-						`${spotifyApiUrl}v1/artists/${testId}`,
+					const { data }: SpotifySearchResponse = await axios.get(
+						`${spotifyApiUrl}?q=${formattedRandomBand}&type=artist`,
 						{
 							headers: { Authorization: `Bearer ${credentials.authToken}` }
 						}
 					);
 
+					const matchingBand = data.artists.items[0];
+
 					// prepare the current band data as required
 					const currentBand: CurrentBand = {
-						bandName: data.name,
-						picture: data.images[0].url
+						bandName: matchingBand.name,
+						picture: matchingBand.images[0].url
 					};
 
 					// dispatch the action to set the current band data
 					dispatch(setCurrentBandData(currentBand));
 				} catch (error) {
+					// console.log(error);
+
 					dispatch(setFailedToFetch());
 				}
 			};
@@ -110,7 +118,10 @@ const Game = () => {
 	}, []);
 
 	const answerSelectionHandler = () => {
-		// eslint-disable-next-line no-console
+		console.log('clicked!');
+	};
+
+	const gameRestartHandler = () => {
 		console.log('clicked!');
 	};
 
@@ -144,22 +155,14 @@ const Game = () => {
 									{game.correctAnswer.replace('-', ' ')}!
 								</h2>
 
-								{/* {game.currentCardData.setName ? (
-									<p>
-										{game.currentCardData.cardName} is a card from {game.currentCardData.setName}
-									</p>
-								) : null} */}
-
-								{/* {game.currentBandData.bandName ? (
-									<p>{game.currentBandData.bandName} is a metal band!</p>
-								) : null} */}
-
 								<img
 									src={game.currentCardData.imageUri || game.currentBandData.picture}
 									alt={`${game.currentCardData.cardName || game.currentBandData.bandName}`}
 								/>
 
-								<button type='button'>Another One!</button>
+								<button onClick={gameRestartHandler} type='button'>
+									Another One!
+								</button>
 							</div>
 						</>
 					)}

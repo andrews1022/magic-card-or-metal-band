@@ -49,7 +49,8 @@ export type GameActions =
 	| { type: 'SET_CORRECT_ANSWER'; payload: ValidAnswers }
 	| { type: 'SET_CURRENT_CARD_DATA'; payload: CurrentCard }
 	| { type: 'SET_CURRENT_BAND_DATA'; payload: CurrentBand }
-	| { type: 'FAILED_TO_FETCH' };
+	| { type: 'FAILED_TO_FETCH' }
+	| { type: 'SET_ANSWER'; payload: boolean };
 
 // credentials actions
 export type CredentialsActions = { type: 'SET_AUTH_TOKEN'; payload: string };
@@ -188,16 +189,6 @@ export type SpotifyBandResponse = {
 	popularity: number;
 	type: string;
 	uri: string;
-};
-
-type SpotifySearchResponseFields = {
-	href: string;
-	items: never[] | {}[];
-	limit: number;
-	next: string | null;
-	offset: number;
-	previous: string | null;
-	total: number;
 };
 
 export type SpotifySearchResponse = {

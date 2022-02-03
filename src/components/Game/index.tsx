@@ -10,6 +10,7 @@ import { scryfallUrl, spotifyApiUrl } from '../../api/api';
 
 // actions
 import {
+	setAnswer,
 	setCorrectAnswer,
 	setCurrentBandData,
 	setCurrentCardData,
@@ -102,8 +103,6 @@ const Game = () => {
 					// dispatch the action to set the current band data
 					dispatch(setCurrentBandData(currentBand));
 				} catch (error) {
-					// console.log(error);
-
 					dispatch(setFailedToFetch());
 				}
 			};
@@ -117,18 +116,25 @@ const Game = () => {
 		};
 	}, []);
 
-	const answerSelectionHandler = () => {
-		console.log('clicked!');
+	const answerSelectionHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+		const { value } = e.currentTarget.dataset;
+		const { correctAnswer } = game;
+
+		if (value === correctAnswer) {
+			// the correct button was clicked
+			dispatch(setAnswer(true));
+		} else {
+			// the incorrect button was clicked
+			dispatch(setAnswer(false));
+		}
 	};
 
-	const gameRestartHandler = () => {
-		console.log('clicked!');
-	};
+	const gameRestartHandler = () => {};
 
 	return (
 		<div className='outer-wrapper'>
 			{game.failedToFetch ? (
-				<p>Woops! Something went wrong there. Please refresh and try again</p>
+				<p>Woops! Something went wrong there. Please refresh and try again.</p>
 			) : (
 				<div className='inner-wrapper'>
 					{game.isLoading ? (
@@ -149,21 +155,25 @@ const Game = () => {
 								</button>
 							</div>
 
-							<div className='answer-wrapper'>
-								<h2>
-									{game.currentCardData.cardName || game.currentBandData.bandName} is a{' '}
-									{game.correctAnswer.replace('-', ' ')}!
-								</h2>
+							{game.hasSelected ? (
+								<div className='answer-wrapper'>
+									<p>Your answer was {game.wasGuessedCorrectly ? 'Correct!' : 'Incorrect!'}</p>
 
-								<img
-									src={game.currentCardData.imageUri || game.currentBandData.picture}
-									alt={`${game.currentCardData.cardName || game.currentBandData.bandName}`}
-								/>
+									<h2>
+										{game.currentCardData.cardName || game.currentBandData.bandName} is a{' '}
+										{game.correctAnswer.replace('-', ' ')}!
+									</h2>
 
-								<button onClick={gameRestartHandler} type='button'>
-									Another One!
-								</button>
-							</div>
+									<img
+										src={game.currentCardData.imageUri || game.currentBandData.picture}
+										alt={`${game.currentCardData.cardName || game.currentBandData.bandName}`}
+									/>
+
+									<button onClick={gameRestartHandler} type='button'>
+										{game.wasGuessedCorrectly ? 'Another One!' : 'Try Again?'}
+									</button>
+								</div>
+							) : null}
 						</>
 					)}
 				</div>

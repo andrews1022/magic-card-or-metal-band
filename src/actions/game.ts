@@ -19,3 +19,5 @@ export const setCurrentBandData = (obj: CurrentBand) => async (dispatch: Dispatc
 };
 
 export const setFailedToFetch = (): GameActions => ({ type: 'FAILED_TO_FETCH' });
+
+export const setAnswer = (bool: boolean): GameActions => ({ type: 'SET_ANSWER', payload: bool });

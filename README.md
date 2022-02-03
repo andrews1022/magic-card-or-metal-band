@@ -27,7 +27,7 @@ State
 - `wasGuessedCorrectly`: either `true` or `false`
   - simply used for whether or not the user clicked the correct button
 - `hasSelected`: either `true` or `false`
-  - used for display the `<Result />` component (faded in) underneath question regardless if user was right or wrong
+  - used for display the `<Answer />` component (faded in) underneath question regardless if user was right or wrong
 
 Game
 

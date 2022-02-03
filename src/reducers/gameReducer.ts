@@ -28,6 +28,13 @@ const gameReducer = (state: GameState = intialGameState, action: GameActions): G
 				failedToFetch: true
 			};
 
+		case 'SET_ANSWER':
+			return {
+				...state,
+				wasGuessedCorrectly: action.payload,
+				hasSelected: true
+			};
+
 		case 'LOADING':
 			return {
 				...state,

@@ -18,15 +18,29 @@ const GlobalStyle = createGlobalStyle`
     display: flex;
     align-items: center;
     justify-content: center;
-    
+
     color: ${greys.nero};
     font-family: ${fonts.fontRoboto};
     height: 100vh;
     line-height: 1;
+
+    @media ${mediaQueries.tabletLandscape} {
+      height: 100%;
+    }
   }
 
   #root {
+    padding: 3.5% 0;
     width: 66%;
+
+    @media ${mediaQueries.tabletLandscape} {
+      padding: 7% 0;
+      width: 85%;
+    }
+
+    @media ${mediaQueries.mobileLarge} {
+      padding: 10% 0;
+    }
   }
 
   *,
@@ -41,7 +55,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   h1 {
-    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-size: clamp(2rem, 5vw, 3.25rem);
     line-height: 1.25;
   }
 
@@ -50,6 +64,11 @@ const GlobalStyle = createGlobalStyle`
     line-height: 1.45;
     margin: 1.5% auto;
     width: 66%;
+
+    @media ${mediaQueries.tabletLandscape} {
+      margin: 5% auto;
+      width: 100%;
+    }
   }
 
   button,

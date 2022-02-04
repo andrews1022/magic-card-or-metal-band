@@ -13,7 +13,6 @@ import useName from '../../hooks/useName';
 
 // styled components
 import { Button } from '../UI/Button';
-import { Wrapper } from '../UI/Wrapper';
 import * as S from './styles';
 
 // constants
@@ -40,7 +39,7 @@ const Question = () => {
 	};
 
 	return (
-		<Wrapper>
+		<>
 			<h1>
 				Is <S.Name>{nameToUse}</S.Name> a Magic Card, or a Metal Band?
 			</h1>
@@ -49,6 +48,7 @@ const Question = () => {
 				<Button
 					color='bunting'
 					data-value={MAGIC_CARD}
+					disabled={game.hasSelected}
 					onClick={answerSelectionHandler}
 					type='button'
 				>
@@ -58,13 +58,14 @@ const Question = () => {
 				<Button
 					color='bunting'
 					data-value={METAL_BAND}
+					disabled={game.hasSelected}
 					onClick={answerSelectionHandler}
 					type='button'
 				>
 					<MusicNoteIcon fontSize='large' /> Metal Band
 				</Button>
 			</S.ButtonRow>
-		</Wrapper>
+		</>
 	);
 };
 

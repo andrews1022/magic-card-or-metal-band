@@ -6,6 +6,8 @@ import React from 'react';
 import RefreshIcon from '@material-ui/icons/Refresh';
 
 // styled components
+import theme from '../../styles/theme';
+import { Button } from '../UI/Button';
 import { Wrapper } from '../UI/Wrapper';
 
 const Error = () => {
@@ -15,13 +17,13 @@ const Error = () => {
 
 	return (
 		<Wrapper>
-			<h1>Woops!</h1>
+			<h1 style={{ color: theme.colors.rouge }}>Woops!</h1>
 
 			<p>Something went wrong there. Please refresh and try again.</p>
 
-			<button onClick={refreshHandler} type='button'>
-				<RefreshIcon /> Refresh
-			</button>
+			<Button color='jungleGreen' onClick={refreshHandler} type='button'>
+				<RefreshIcon fontSize='large' /> Refresh
+			</Button>
 		</Wrapper>
 	);
 };

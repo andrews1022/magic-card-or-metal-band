@@ -207,3 +207,8 @@ export type SpotifySearchResponse = {
 		};
 	};
 };
+
+// theme
+export type ThemeColor = {
+	color: 'bunting' | 'rouge' | 'jungleGreen' | 'halfPearlLusta';
+};

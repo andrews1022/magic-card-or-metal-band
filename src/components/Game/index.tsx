@@ -13,6 +13,9 @@ import Error from '../Error';
 import Loading from '../Loading';
 import Question from '../Question';
 
+// styled
+import { Wrapper } from '../UI/Wrapper';
+
 // custom hooks
 import useRandomBand from '../../hooks/useRandomBand';
 
@@ -141,11 +144,11 @@ const Game = () => {
 	if (game.isLoading) return <Loading />;
 
 	return (
-		<div className='game-wrapper'>
+		<Wrapper>
 			<Question />
 
-			{game.hasSelected ? <Answer gameRestartHandler={gameRestartHandler} /> : null}
-		</div>
+			<Answer gameRestartHandler={gameRestartHandler} />
+		</Wrapper>
 	);
 };
 

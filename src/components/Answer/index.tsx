@@ -1,7 +1,14 @@
 import React from 'react';
 
+// material icons
+import RefreshIcon from '@material-ui/icons/Refresh';
+
 // redux
 import { useSelector } from 'react-redux';
+
+// styled components
+import { Button } from '../UI/Button';
+import * as S from './styles';
 
 // custom hooks
 import useImage from '../../hooks/useImage';
@@ -10,6 +17,7 @@ import useName from '../../hooks/useName';
 // types
 import { CombinedAppState, GameState } from '../../types/types';
 
+// props
 type AnswerProps = {
 	gameRestartHandler: () => void;
 };
@@ -22,19 +30,28 @@ const Answer = ({ gameRestartHandler }: AnswerProps) => {
 	const nameToUse = useName();
 
 	return (
-		<div className='answer-wrapper'>
-			<p>Your answer was {game.wasGuessedCorrectly ? 'Correct!' : 'Incorrect!'}</p>
+		<S.Wrapper isInView={game.hasSelected}>
+			<p>
+				Your answer was{' '}
+				<S.Correct color={game.wasGuessedCorrectly ? 'jungleGreen' : 'rouge'}>
+					{game.wasGuessedCorrectly ? 'Correct!' : 'Incorrect!'}
+				</S.Correct>
+			</p>
 
-			<h2>
-				{nameToUse} is a {game.correctAnswer.replace('-', ' ')}!
-			</h2>
+			<p>
+				<S.Name>{nameToUse}</S.Name> is a <S.Type>{game.correctAnswer.replace('-', ' ')}</S.Type>!
+			</p>
 
-			<img src={imageToUse} alt={nameToUse} />
+			<S.Image src={imageToUse} alt={nameToUse} />
 
-			<button onClick={gameRestartHandler} type='button'>
-				{game.wasGuessedCorrectly ? 'Another One!' : 'Try Again?'}
-			</button>
-		</div>
+			<Button
+				color={game.wasGuessedCorrectly ? 'jungleGreen' : 'rouge'}
+				onClick={gameRestartHandler}
+				type='button'
+			>
+				<RefreshIcon fontSize='large' /> {game.wasGuessedCorrectly ? 'Another One!' : 'Try Again?'}
+			</Button>
+		</S.Wrapper>
 	);
 };
 

@@ -37,27 +37,25 @@ const App = () => {
 
 	const dispatch = useDispatch();
 
-	// set spotify auth token
+	// set spotify auth token (needed for all future get requests)
 	useEffect(() => {
 		const source = axios.CancelToken.source();
 
-		const authorizationHeader = useAuth();
-
 		const setSpotifyAuthToken = async () => {
-			axios(spotifyTokenUrl, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/x-www-form-urlencoded',
-					Authorization: authorizationHeader
-				},
-				data: 'grant_type=client_credentials'
-			})
-				.then((resp) => {
-					dispatch(setAuthToken(resp.data.access_token));
-				})
-				.catch((error) => {
-					console.log(error);
+			try {
+				const resp = await axios(spotifyTokenUrl, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded',
+						Authorization: useAuth()
+					},
+					data: 'grant_type=client_credentials'
 				});
+
+				dispatch(setAuthToken(resp.data.access_token));
+			} catch (error) {
+				console.log(error);
+			}
 		};
 
 		setSpotifyAuthToken();
@@ -73,15 +71,14 @@ const App = () => {
 		const checkLocalStorage = () => {
 			const bandsFromLocalStorage = localStorage.getItem(LOCAL_STORAGE_KEY);
 
-			// console.log(bandsFromLocalStorage);
 			if (!bandsFromLocalStorage) {
-				// save bands to local storage
+				// save bands to localstorage
 				localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(bands));
 
-				// save bands to redux store'
+				// save bands to redux store
 				dispatch(setBandData(bands));
 			} else {
-				// save bands to redux store'
+				// save bands retrieved from localstorage to redux store
 				dispatch(setBandData(JSON.parse(bandsFromLocalStorage)));
 			}
 		};
@@ -94,7 +91,8 @@ const App = () => {
 		};
 	}, []);
 
-	return <div className='app-wrapper'>{game.isGameBeingPlayed ? <Game /> : <Start />}</div>;
+	// jsx
+	return game.isGameBeingPlayed ? <Game /> : <Start />;
 };
 
 export default App;

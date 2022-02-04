@@ -2,7 +2,7 @@ import { createGlobalStyle } from 'styled-components';
 import theme from './theme';
 
 // destructured theme properties
-const { mediaQueries, fonts } = theme;
+const { fonts, greys, mediaQueries } = theme;
 
 const GlobalStyle = createGlobalStyle`
   html {
@@ -15,8 +15,18 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    color: ${greys.nero};
     font-family: ${fonts.fontRoboto};
+    height: 100vh;
     line-height: 1;
+  }
+
+  #root {
+    width: 66%;
   }
 
   *,
@@ -30,9 +40,16 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
   }
 
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.25;
+  }
+
   p {
     font-size: 1.15rem;
     line-height: 1.45;
+    margin: 1.5% auto;
+    width: 66%;
   }
 
   button,

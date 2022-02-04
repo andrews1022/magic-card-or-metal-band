@@ -29,6 +29,13 @@ const gameReducer = (state: GameState = intialGameState, action: GameActions): G
 			};
 		}
 
+		case 'LOADING': {
+			return {
+				...state,
+				isLoading: true
+			};
+		}
+
 		case 'RESTART_GAME': {
 			return {
 				...intialGameState,
@@ -44,24 +51,18 @@ const gameReducer = (state: GameState = intialGameState, action: GameActions): G
 			};
 		}
 
-		case 'LOADING': {
-			return {
-				...state,
-				isLoading: true
-			};
-		}
-
-		case 'START_GAME': {
-			return {
-				...state,
-				isGameBeingPlayed: true
-			};
-		}
-
 		case 'SET_CORRECT_ANSWER': {
 			return {
 				...state,
 				correctAnswer: action.payload
+			};
+		}
+
+		case 'SET_CURRENT_BAND_DATA': {
+			return {
+				...state,
+				currentBandData: action.payload,
+				isLoading: false
 			};
 		}
 
@@ -73,11 +74,10 @@ const gameReducer = (state: GameState = intialGameState, action: GameActions): G
 			};
 		}
 
-		case 'SET_CURRENT_BAND_DATA': {
+		case 'START_GAME': {
 			return {
 				...state,
-				currentBandData: action.payload,
-				isLoading: false
+				isGameBeingPlayed: true
 			};
 		}
 

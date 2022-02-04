@@ -25,11 +25,11 @@ const Answer = ({ gameRestartHandler }: AnswerProps) => {
 		<div className='answer-wrapper'>
 			<p>Your answer was {game.wasGuessedCorrectly ? 'Correct!' : 'Incorrect!'}</p>
 
-			<h1>
+			<h2>
 				{nameToUse} is a {game.correctAnswer.replace('-', ' ')}!
-			</h1>
+			</h2>
 
-			<img src={imageToUse} alt={`${nameToUse}`} />
+			<img src={imageToUse} alt={nameToUse} />
 
 			<button onClick={gameRestartHandler} type='button'>
 				{game.wasGuessedCorrectly ? 'Another One!' : 'Try Again?'}

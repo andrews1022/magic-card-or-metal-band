@@ -7,6 +7,10 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import { useDispatch } from 'react-redux';
 import { startGame } from '../../actions/game';
 
+// styled components
+import { Button } from '../UI/Button';
+import { Wrapper } from '../UI/Wrapper';
+
 const Start = () => {
 	const dispatch = useDispatch();
 
@@ -15,7 +19,7 @@ const Start = () => {
 	};
 
 	return (
-		<div className='start-wrapper'>
+		<Wrapper>
 			<h1>Magic Card or Metal Band</h1>
 
 			<p>
@@ -23,11 +27,10 @@ const Start = () => {
 				generated name is either a card from Magic: The Gathering, or a Metal Band.
 			</p>
 
-			<button onClick={startGameHandler} type='button'>
-				<PlayArrowIcon />
-				Play
-			</button>
-		</div>
+			<Button color='bunting' onClick={startGameHandler} type='button'>
+				<PlayArrowIcon fontSize='large' /> Play
+			</Button>
+		</Wrapper>
 	);
 };
 

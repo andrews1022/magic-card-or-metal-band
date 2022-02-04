@@ -17,12 +17,15 @@ export type CurrentBand = {
 	picture: string;
 };
 
-// band state
+// state
 export type BandsState = {
 	bands: string[];
 };
 
-// game state
+export type CredentialsState = {
+	authToken: string;
+};
+
 export type GameState = {
 	isGameBeingPlayed: boolean;
 	currentCardData: CurrentCard;
@@ -34,10 +37,6 @@ export type GameState = {
 	hasSelected: boolean;
 };
 
-export type CredentialsState = {
-	authToken: string;
-};
-
 export type AppState = {
 	bands: BandsState;
 	credentials: CredentialsState;
@@ -47,22 +46,20 @@ export type AppState = {
 // this is used for useSelector hook calls
 export type CombinedAppState = CombinedState<AppState>;
 
-// game actions
-export type GameActions =
-	| { type: 'LOADING' }
-	| { type: 'START_GAME' }
-	| { type: 'SET_CORRECT_ANSWER'; payload: ValidAnswers }
-	| { type: 'SET_CURRENT_CARD_DATA'; payload: CurrentCard }
-	| { type: 'SET_CURRENT_BAND_DATA'; payload: CurrentBand }
-	| { type: 'FAILED_TO_FETCH' }
-	| { type: 'RESTART_GAME' }
-	| { type: 'SET_ANSWER'; payload: boolean };
+// actions
+export type BandsActions = { type: 'SET_BAND_DATA'; payload: string[] };
 
-// credentials actions
 export type CredentialsActions = { type: 'SET_AUTH_TOKEN'; payload: string };
 
-// band actions
-export type BandsActions = { type: 'SET_BAND_DATA'; payload: string[] };
+export type GameActions =
+	| { type: 'FAILED_TO_FETCH' }
+	| { type: 'LOADING' }
+	| { type: 'RESTART_GAME' }
+	| { type: 'SET_ANSWER'; payload: boolean }
+	| { type: 'SET_CORRECT_ANSWER'; payload: ValidAnswers }
+	| { type: 'SET_CURRENT_BAND_DATA'; payload: CurrentBand }
+	| { type: 'SET_CURRENT_CARD_DATA'; payload: CurrentCard }
+	| { type: 'START_GAME' };
 
 // api responses
 export type ScryfallResponse = {
@@ -155,7 +152,7 @@ export type ScryfallResponse = {
 		booster: boolean;
 		story_spotlight: boolean;
 		edhrec_rank: number;
-		rices: {
+		prices: {
 			usd: string | null;
 			usd_foil: string | null;
 			usd_etched: string | null;

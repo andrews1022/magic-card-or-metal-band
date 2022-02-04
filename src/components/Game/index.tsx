@@ -11,15 +11,14 @@ import { scryfallUrl, spotifyApiUrl } from '../../api/api';
 import Answer from '../Answer';
 import Error from '../Error';
 import Loading from '../Loading';
+import Question from '../Question';
 
 // custom hooks
-import useBand from '../../hooks/useBand';
-import useName from '../../hooks/useName';
+import useRandomBand from '../../hooks/useRandomBand';
 
 // actions
 import {
 	restartGame,
-	setAnswer,
 	setCorrectAnswer,
 	setCurrentBandData,
 	setCurrentCardData,
@@ -51,12 +50,9 @@ const Game = () => {
 	// dispatch hook call
 	const dispatch = useDispatch();
 
-	// set some vars to make jsx cleaner
-	const nameToUse = useName();
-
 	// init game fn (run on component mount and in gameRestartHandler function below)
 	const initGame = () => {
-		// randomly decide between either magic-card or metal-band on component mount
+		// randomly decide between either magic-card or metal-band
 		const chosenValue = Math.random() < 0.5 ? MAGIC_CARD : METAL_BAND;
 		dispatch(setCorrectAnswer(chosenValue));
 
@@ -69,14 +65,14 @@ const Game = () => {
 				try {
 					const { data }: ScryfallResponse = await axios.get(scryfallUrl);
 
-					// prepare the current card data as required
+					// prepare the currentcard data as required
 					const currentCard: CurrentCard = {
 						cardName: data.name,
 						imageUri: data.image_uris.normal,
 						setName: data.set_name
 					};
 
-					// dispatch the action to set the current card data
+					// dispatch the action to set the currentcard data
 					dispatch(setCurrentCardData(currentCard));
 				} catch (error) {
 					console.log(error);
@@ -91,7 +87,7 @@ const Game = () => {
 
 		if (chosenValue === 'metal-band') {
 			const getBand = async () => {
-				const randomBand = useBand(bands);
+				const randomBand = useRandomBand(bands);
 
 				try {
 					const { data }: SpotifySearchResponse = await axios.get(
@@ -103,13 +99,13 @@ const Game = () => {
 
 					const matchingBand = data.artists.items[0];
 
-					// prepare the current band data as required
+					// prepare the currentband data as required
 					const currentBand: CurrentBand = {
 						bandName: matchingBand.name,
 						picture: matchingBand.images[0].url
 					};
 
-					// dispatch the action to set the current band data
+					// dispatch the action to set the currentband data
 					dispatch(setCurrentBandData(currentBand));
 				} catch (error) {
 					console.log(error);
@@ -134,37 +130,19 @@ const Game = () => {
 		};
 	}, []);
 
-	const answerSelectionHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-		const { value } = event.currentTarget.dataset;
-		const { correctAnswer } = game;
-
-		return value === correctAnswer ? dispatch(setAnswer(true)) : dispatch(setAnswer(false));
-	};
-
 	const gameRestartHandler = () => {
 		dispatch(restartGame());
 
 		initGame();
 	};
 
-	// return either of these first if applicable
+	// return either of these first if/when applicable
 	if (game.failedToFetch) return <Error />;
-
 	if (game.isLoading) return <Loading />;
 
 	return (
 		<div className='game-wrapper'>
-			<h1>Is {nameToUse} a Magic Card, or a Metal Band?</h1>
-
-			<div className='btn-row'>
-				<button data-value={MAGIC_CARD} onClick={answerSelectionHandler} type='button'>
-					Magic Card
-				</button>
-
-				<button data-value={METAL_BAND} onClick={answerSelectionHandler} type='button'>
-					Metal Band
-				</button>
-			</div>
+			<Question />
 
 			{game.hasSelected ? <Answer gameRestartHandler={gameRestartHandler} /> : null}
 		</div>

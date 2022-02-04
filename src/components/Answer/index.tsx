@@ -25,6 +25,8 @@ type AnswerProps = {
 const Answer = ({ gameRestartHandler }: AnswerProps) => {
 	const game = useSelector<CombinedAppState, GameState>((state) => state.game);
 
+	const answerColor = game.wasGuessedCorrectly ? 'jungleGreen' : 'rouge';
+
 	// set some vars to make jsx cleaner
 	const imageToUse = useImage();
 	const nameToUse = useName();
@@ -33,7 +35,7 @@ const Answer = ({ gameRestartHandler }: AnswerProps) => {
 		<S.Wrapper isInView={game.hasSelected}>
 			<p>
 				Your answer was{' '}
-				<S.Correct color={game.wasGuessedCorrectly ? 'jungleGreen' : 'rouge'}>
+				<S.Correct color={answerColor}>
 					{game.wasGuessedCorrectly ? 'Correct!' : 'Incorrect!'}
 				</S.Correct>
 			</p>
@@ -44,11 +46,7 @@ const Answer = ({ gameRestartHandler }: AnswerProps) => {
 
 			<S.Image src={imageToUse} alt={nameToUse} />
 
-			<Button
-				color={game.wasGuessedCorrectly ? 'jungleGreen' : 'rouge'}
-				onClick={gameRestartHandler}
-				type='button'
-			>
+			<Button color={answerColor} onClick={gameRestartHandler} type='button'>
 				<RefreshIcon fontSize='large' /> {game.wasGuessedCorrectly ? 'Another One!' : 'Try Again?'}
 			</Button>
 		</S.Wrapper>

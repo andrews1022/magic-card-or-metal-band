@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import React, { useEffect } from 'react';
 
 // axios
@@ -14,14 +12,7 @@ import Game from '../Game';
 import Start from '../Start';
 
 // api
-import { spotifyTokenUrl } from '../../api/api';
-
-// actions
-import { setBandData } from '../../actions/bands';
-import { setAuthToken } from '../../actions/credentials';
-
-// custom hooks
-import useAuth from '../../hooks/useAuth';
+import { getSpotifyAuthToken } from '../../api/functions';
 
 // data
 import bands from '../../data/bands';
@@ -31,6 +22,7 @@ import { LOCAL_STORAGE_KEY } from '../../constants/constants';
 
 // types
 import { AppState, GameState } from '../../types/types';
+import { checkLocalStorage } from '../../local-storage/functions';
 
 const App = () => {
 	const game = useSelector<CombinedState<AppState>, GameState>((state) => state.game);
@@ -41,24 +33,7 @@ const App = () => {
 	useEffect(() => {
 		const source = axios.CancelToken.source();
 
-		const setSpotifyAuthToken = async () => {
-			try {
-				const resp = await axios(spotifyTokenUrl, {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/x-www-form-urlencoded',
-						Authorization: useAuth()
-					},
-					data: 'grant_type=client_credentials'
-				});
-
-				dispatch(setAuthToken(resp.data.access_token));
-			} catch (error) {
-				console.log(error);
-			}
-		};
-
-		setSpotifyAuthToken();
+		getSpotifyAuthToken(dispatch);
 
 		// cleanup
 		return () => {
@@ -68,22 +43,7 @@ const App = () => {
 
 	// load / set band data from local storage
 	useEffect(() => {
-		const checkLocalStorage = () => {
-			const bandsFromLocalStorage = localStorage.getItem(LOCAL_STORAGE_KEY);
-
-			if (!bandsFromLocalStorage) {
-				// save bands to localstorage
-				localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(bands));
-
-				// save bands to redux store
-				dispatch(setBandData(bands));
-			} else {
-				// save bands retrieved from localstorage to redux store
-				dispatch(setBandData(JSON.parse(bandsFromLocalStorage)));
-			}
-		};
-
-		checkLocalStorage();
+		checkLocalStorage(bands, dispatch);
 
 		// cleanup
 		return () => {

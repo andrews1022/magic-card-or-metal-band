@@ -9,9 +9,9 @@ export const Button = styled.button<ThemeColor>`
 	justify-content: space-between;
 
 	background-color: transparent;
-	border: 2px solid ${(props) => props.theme.colors[props.color]};
+	border: 2px solid ${({ color, theme }) => theme.colors[color]};
 	border-radius: 0.5rem;
-	color: ${(props) => props.theme.colors[props.color]};
+	color: ${({ color, theme }) => theme.colors[color]};
 	cursor: pointer;
 	font-size: 1.5rem;
 	padding: 1rem 2rem;
@@ -23,9 +23,9 @@ export const Button = styled.button<ThemeColor>`
 			&:hover,
 			&:active,
 			&:focus {
-				background-color: ${(props) => props.theme.colors[props.color]};
+				background-color: ${({ color, theme }) => theme.colors[color]};
 				box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.075);
-				color: ${(props) => props.theme.shades.white};
+				color: ${({ theme }) => theme.shades.white};
 				transform: translateY(-0.25rem);
 			}
 		}
@@ -36,9 +36,9 @@ export const Button = styled.button<ThemeColor>`
 		opacity: 0.5;
 	}
 
-	@media ${(props) => props.theme.mediaQueries.tabletLandscape} {
-		background-color: ${(props) => props.theme.colors[props.color]};
-		color: ${(props) => props.theme.shades.white};
+	@media ${({ theme }) => theme.mediaQueries.tabletLandscape} {
+		background-color: ${({ color, theme }) => theme.colors[color]};
+		color: ${({ theme }) => theme.shades.white};
 		font-size: 1.25rem;
 		padding: 0.5rem 1rem;
 	}

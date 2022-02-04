@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 
 // api
-import { scryfallUrl, spotifyApiUrl } from '../../api/api';
+import { getBand, getMagicCard } from '../../api/functions';
 
 // components
 import Answer from '../Answer';
@@ -16,33 +16,14 @@ import Question from '../Question';
 // styled
 import { Wrapper } from '../UI/Wrapper';
 
-// custom hooks
-import useRandomBand from '../../hooks/useRandomBand';
-
 // actions
-import {
-	restartGame,
-	setCorrectAnswer,
-	setCurrentBandData,
-	setCurrentCardData,
-	setFailedToFetch,
-	setIsLoading
-} from '../../actions/game';
+import { restartGame, setCorrectAnswer, setIsLoading } from '../../actions/game';
 
 // constants
 import { MAGIC_CARD, METAL_BAND } from '../../constants/constants';
 
 // types
-import {
-	BandsState,
-	CombinedAppState,
-	CredentialsState,
-	CurrentBand,
-	CurrentCard,
-	GameState,
-	ScryfallResponse,
-	SpotifySearchResponse
-} from '../../types/types';
+import { BandsState, CombinedAppState, CredentialsState, GameState } from '../../types/types';
 
 const Game = () => {
 	// grabbing various pieces of state from redux store
@@ -63,61 +44,11 @@ const Game = () => {
 		dispatch(setIsLoading());
 
 		if (chosenValue === 'magic-card') {
-			// fetch a magic card from scryfall
-			const getMagicCard = async () => {
-				try {
-					const { data }: ScryfallResponse = await axios.get(scryfallUrl);
-
-					// prepare the currentcard data as required
-					const currentCard: CurrentCard = {
-						cardName: data.name,
-						imageUri: data.image_uris.normal,
-						setName: data.set_name
-					};
-
-					// dispatch the action to set the currentcard data
-					dispatch(setCurrentCardData(currentCard));
-				} catch (error) {
-					console.log(error);
-
-					dispatch(setFailedToFetch());
-				}
-			};
-
-			// execute the above async func
-			getMagicCard();
+			getMagicCard(dispatch);
 		}
 
 		if (chosenValue === 'metal-band') {
-			const getBand = async () => {
-				const randomBand = useRandomBand(bands);
-
-				try {
-					const { data }: SpotifySearchResponse = await axios.get(
-						`${spotifyApiUrl}?q=${randomBand}&type=artist`,
-						{
-							headers: { Authorization: `Bearer ${credentials.authToken}` }
-						}
-					);
-
-					const matchingBand = data.artists.items[0];
-
-					// prepare the currentband data as required
-					const currentBand: CurrentBand = {
-						bandName: matchingBand.name,
-						picture: matchingBand.images[0].url
-					};
-
-					// dispatch the action to set the currentband data
-					dispatch(setCurrentBandData(currentBand));
-				} catch (error) {
-					console.log(error);
-
-					dispatch(setFailedToFetch());
-				}
-			};
-
-			getBand();
+			getBand(bands, credentials, dispatch);
 		}
 	};
 

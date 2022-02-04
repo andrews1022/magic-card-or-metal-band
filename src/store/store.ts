@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-// this is used for interface Window below
+// this is used for 'interface Window' below
 
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';

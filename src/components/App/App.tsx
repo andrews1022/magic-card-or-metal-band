@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CombinedState } from 'redux';
 
 // components
+import Footer from '../Footer';
 import Game from '../Game';
 import Start from '../Start';
 
@@ -52,7 +53,13 @@ const App = () => {
 	}, []);
 
 	// jsx
-	return game.isGameBeingPlayed ? <Game /> : <Start />;
+	return (
+		<>
+			{game.isGameBeingPlayed ? <Game /> : <Start />}
+
+			<Footer />
+		</>
+	);
 };
 
 export default App;

@@ -21,26 +21,14 @@ const GlobalStyle = createGlobalStyle`
 
     color: ${greys.nero};
     font-family: ${fonts.fontRoboto};
-    height: 100vh;
     line-height: 1;
-
-    @media ${mediaQueries.tabletLandscape} {
-      height: 100%;
-    }
   }
 
   #root {
-    padding: 3.5% 0;
-    width: 66%;
-
-    @media ${mediaQueries.tabletLandscape} {
-      padding: 7% 0;
-      width: 85%;
-    }
-
-    @media ${mediaQueries.mobileLarge} {
-      padding: 10% 0;
-    }
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
   }
 
   *,

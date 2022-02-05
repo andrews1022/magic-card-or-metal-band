@@ -7,8 +7,8 @@ import RefreshIcon from '@material-ui/icons/Refresh';
 import { useSelector } from 'react-redux';
 
 // styled components
-import { Button } from '../UI/Button';
 import * as S from './styles';
+import { Button } from '../UI/Button';
 
 // custom hooks
 import useImage from '../../hooks/useImage';

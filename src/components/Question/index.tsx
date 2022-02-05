@@ -12,8 +12,8 @@ import { setAnswer } from '../../actions/game';
 import useName from '../../hooks/useName';
 
 // styled components
-import { Button } from '../UI/Button';
 import * as S from './styles';
+import { Button } from '../UI/Button';
 
 // constants
 import { MAGIC_CARD, METAL_BAND } from '../../constants/constants';

@@ -20,7 +20,7 @@ const GlobalStyle = createGlobalStyle`
     justify-content: center;
 
     color: ${greys.nero};
-    font-family: ${fonts.fontRoboto};
+    font-family: ${fonts.roboto};
     line-height: 1;
   }
 
@@ -62,7 +62,7 @@ const GlobalStyle = createGlobalStyle`
   button,
   input,
   textarea {
-    font-family: ${fonts.fontRoboto};
+    font-family: ${fonts.roboto};
   }
 
   img,

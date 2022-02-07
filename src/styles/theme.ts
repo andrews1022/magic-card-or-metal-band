@@ -31,7 +31,7 @@ const theme = {
 		halfPearlLusta: '#eee6ce'
 	},
 	fonts: {
-		fontRoboto: "'Roboto', sans-serif"
+		roboto: "'Roboto', sans-serif"
 	},
 	fontWeights: {
 		thin: 100,

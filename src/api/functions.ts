@@ -1,6 +1,9 @@
 // axios
 import axios from 'axios';
 
+// buffer
+import { Buffer } from 'buffer';
+
 // redux types
 import { Dispatch } from 'redux';
 
@@ -8,12 +11,10 @@ import { Dispatch } from 'redux';
 import { scryfallUrl, spotifyApiUrl, spotifyTokenUrl } from './urls';
 
 // actions
-import { setAuthToken } from '../actions/credentials';
 import { setCurrentBandData, setCurrentCardData, setFailedToFetch } from '../actions/game';
 
-// custom hooks
-import useAuth from '../hooks/useAuth';
-import useRandomBand from '../hooks/useRandomBand';
+// utils
+import { getRandomBand } from '../utils/getRandomBand';
 
 // custom types
 import {
@@ -25,23 +26,19 @@ import {
 	SpotifySearchResponse
 } from '../types/types';
 
-export const getSpotifyAuthToken = async (dispatch: Dispatch<any>) => {
-	try {
-		const axiosData = 'grant_type=client_credentials';
+export const getSpotifyAuthToken = () => {
+	const envString = `${process.env.REACT_APP_SPOTIFY_CLIENT_ID}:${process.env.REACT_APP_SPOTIFY_CLIENT_SECRET}`;
 
-		const axiosConfig = {
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded',
-				Authorization: useAuth()
-			}
-		};
+	const data = 'grant_type=client_credentials';
 
-		const resp = await axios.post(spotifyTokenUrl, axiosData, axiosConfig);
+	const config = {
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded',
+			Authorization: `Basic ${Buffer.from(`${envString}`).toString('base64')}`
+		}
+	};
 
-		dispatch(setAuthToken(resp.data.access_token));
-	} catch (error) {
-		console.log(error);
-	}
+	return axios.post(spotifyTokenUrl, data, config);
 };
 
 export const getMagicCard = async (dispatch: Dispatch<any>) => {
@@ -69,16 +66,16 @@ export const getBand = async (
 	credentials: CredentialsState,
 	dispatch: Dispatch<any>
 ) => {
-	const randomBand = useRandomBand(bands);
+	const randomBand = getRandomBand(bands);
 
 	try {
-		const axiosUrl = `${spotifyApiUrl}?q=${randomBand}&type=artist`;
+		const url = `${spotifyApiUrl}?q=${randomBand}&type=artist`;
 
-		const axiosConfig = {
+		const config = {
 			headers: { Authorization: `Bearer ${credentials.authToken}` }
 		};
 
-		const { data }: SpotifySearchResponse = await axios.get(axiosUrl, axiosConfig);
+		const { data }: SpotifySearchResponse = await axios.get(url, config);
 
 		const matchingBand = data.artists.items[0];
 

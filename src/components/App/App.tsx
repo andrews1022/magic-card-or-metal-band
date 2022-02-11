@@ -5,15 +5,12 @@ import axios from 'axios';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
-import { CombinedState } from 'redux';
+import { setAuthToken } from '../../actions/credentials';
 
 // components
 import Footer from '../Footer';
 import Game from '../Game';
 import Start from '../Start';
-
-// api
-import { getSpotifyAuthToken } from '../../api/functions';
 
 // data
 import bands from '../../data/bands';
@@ -22,11 +19,13 @@ import bands from '../../data/bands';
 import { LOCAL_STORAGE_KEY } from '../../constants/constants';
 
 // types
-import { AppState, GameState } from '../../types/types';
+import { CombinedAppState, GameState } from '../../types/types';
+
+// local storage
 import { checkLocalStorage } from '../../local-storage/functions';
 
 const App = () => {
-	const game = useSelector<CombinedState<AppState>, GameState>((state) => state.game);
+	const game = useSelector<CombinedAppState, GameState>((state) => state.game);
 
 	const dispatch = useDispatch();
 
@@ -34,7 +33,7 @@ const App = () => {
 	useEffect(() => {
 		const source = axios.CancelToken.source();
 
-		getSpotifyAuthToken(dispatch);
+		dispatch(setAuthToken());
 
 		// cleanup
 		return () => {

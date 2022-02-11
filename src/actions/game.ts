@@ -13,11 +13,11 @@ export const setCorrectAnswer = (val: ValidAnswers): GameActions => ({
 	payload: val
 });
 
-export const setCurrentBandData = (obj: CurrentBand) => async (dispatch: Dispatch) => {
+export const setCurrentBandData = (obj: CurrentBand) => async (dispatch: Dispatch<any>) => {
 	dispatch({ type: 'SET_CURRENT_BAND_DATA', payload: obj });
 };
 
-export const setCurrentCardData = (obj: CurrentCard) => async (dispatch: Dispatch) => {
+export const setCurrentCardData = (obj: CurrentCard) => async (dispatch: Dispatch<any>) => {
 	dispatch({ type: 'SET_CURRENT_CARD_DATA', payload: obj });
 };
 

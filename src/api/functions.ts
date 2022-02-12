@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Buffer } from 'buffer';
 
 // api endpoints
-import { scryfallUrl, spotifyApiUrl, spotifyTokenUrl } from './urls';
+import { scryfallApiUrl, spotifyApiUrl, spotifyTokenUrl } from './urls';
 
 // utils
 import { getRandomBand } from '../utils/getRandomBand';
@@ -48,4 +48,4 @@ export const getBand = (bands: BandsState, credentials: CredentialsState) => {
 };
 
 // used in: src/actions/game.ts
-export const getMagicCard = () => axios.get(scryfallUrl);
+export const getMagicCard = () => axios.get(scryfallApiUrl);

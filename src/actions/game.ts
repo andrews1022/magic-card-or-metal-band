@@ -35,6 +35,8 @@ export const setCurrentBandData =
 			dispatch({ type: 'SET_CURRENT_BAND_DATA', payload: currentBand });
 		} catch (error) {
 			console.log(error);
+
+			dispatch({ type: 'FAILED_TO_FETCH' });
 		}
 	};
 
@@ -52,6 +54,8 @@ export const setCurrentCardData = () => async (dispatch: Dispatch<GameActions>) 
 		dispatch({ type: 'SET_CURRENT_CARD_DATA', payload: currentCard });
 	} catch (error) {
 		console.log(error);
+
+		dispatch({ type: 'FAILED_TO_FETCH' });
 	}
 };
 

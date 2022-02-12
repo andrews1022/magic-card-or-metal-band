@@ -1,26 +1,26 @@
-import React from 'react';
+import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+
+// styled components
 import { ThemeProvider } from 'styled-components';
+import GlobalStyle from './styles/GlobalStyle';
+import theme from './styles/theme';
 
 // components
-import App from './components/App/App';
+import App from './components/App';
 
 // redux store
 import store from './store/store';
 
-// styled components
-import GlobalStyle from './styles/GlobalStyle';
-import theme from './styles/theme';
-
 ReactDOM.render(
-	<React.StrictMode>
+	<StrictMode>
 		<Provider store={store}>
 			<ThemeProvider theme={theme}>
 				<GlobalStyle />
 				<App />
 			</ThemeProvider>
 		</Provider>
-	</React.StrictMode>,
+	</StrictMode>,
 	document.getElementById('root')
 );

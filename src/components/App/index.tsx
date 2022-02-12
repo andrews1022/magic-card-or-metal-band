@@ -5,7 +5,10 @@ import axios from 'axios';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
+
+// actions
 import { setAuthToken } from '../../actions/credentials';
+import { setLocalStorageData } from '../../actions/bands';
 
 // components
 import Footer from '../Footer';
@@ -20,9 +23,6 @@ import { LOCAL_STORAGE_KEY } from '../../constants/constants';
 
 // types
 import { CombinedAppState, GameState } from '../../types/types';
-
-// local storage
-import { checkLocalStorage } from '../../local-storage/functions';
 
 const App = () => {
 	const game = useSelector<CombinedAppState, GameState>((state) => state.game);
@@ -43,7 +43,7 @@ const App = () => {
 
 	// load / set band data from local storage
 	useEffect(() => {
-		checkLocalStorage(bands, dispatch);
+		dispatch(setLocalStorageData(bands));
 
 		// cleanup
 		return () => {
@@ -51,7 +51,6 @@ const App = () => {
 		};
 	}, []);
 
-	// jsx
 	return (
 		<>
 			{game.isGameBeingPlayed ? <Game /> : <Start />}

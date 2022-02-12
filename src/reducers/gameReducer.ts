@@ -43,7 +43,7 @@ const gameReducer = (state: GameState = intialGameState, action: GameActions): G
 			};
 		}
 
-		case 'SET_ANSWER': {
+		case 'SET_WAS_GUESSED_CORRECTLY': {
 			return {
 				...state,
 				wasGuessedCorrectly: action.payload,

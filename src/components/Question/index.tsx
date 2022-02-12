@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 
 // material icons
 import CropPortraitIcon from '@material-ui/icons/CropPortrait';
@@ -6,7 +6,7 @@ import MusicNoteIcon from '@material-ui/icons/MusicNote';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
-import { setAnswer } from '../../actions/game';
+import { setWasGuessedCorrectly } from '../../actions/game';
 
 // custom hooks
 import useName from '../../hooks/useName';
@@ -31,11 +31,13 @@ const Question = () => {
 	// set some vars to make jsx cleaner
 	const nameToUse = useName();
 
-	const answerSelectionHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+	const answerSelectionHandler = (event: MouseEvent<HTMLButtonElement>) => {
 		const { value } = event.currentTarget.dataset;
 		const { correctAnswer } = game;
 
-		return value === correctAnswer ? dispatch(setAnswer(true)) : dispatch(setAnswer(false));
+		return value === correctAnswer
+			? dispatch(setWasGuessedCorrectly(true))
+			: dispatch(setWasGuessedCorrectly(false));
 	};
 
 	return (

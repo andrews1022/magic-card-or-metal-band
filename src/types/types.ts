@@ -1,9 +1,7 @@
 import { CombinedState } from 'redux';
 
 // valid answers
-type MagicCardType = 'magic-card';
-type MetalBandType = 'metal-band';
-export type ValidAnswers = MagicCardType | MetalBandType;
+export type ValidAnswers = 'magic-card' | 'metal-band';
 
 // current data
 export type CurrentCard = {
@@ -47,7 +45,7 @@ export type AppState = {
 export type CombinedAppState = CombinedState<AppState>;
 
 // actions
-export type BandsActions = { type: 'SET_BAND_DATA'; payload: string[] };
+export type BandsActions = { type: 'SET_LOCAL_STORAGE_BAND_DATA'; payload: string[] };
 
 export type CredentialsActions = { type: 'SET_AUTH_TOKEN'; payload: string };
 
@@ -55,10 +53,10 @@ export type GameActions =
 	| { type: 'FAILED_TO_FETCH' }
 	| { type: 'LOADING' }
 	| { type: 'RESTART_GAME' }
-	| { type: 'SET_ANSWER'; payload: boolean }
 	| { type: 'SET_CORRECT_ANSWER'; payload: ValidAnswers }
 	| { type: 'SET_CURRENT_BAND_DATA'; payload: CurrentBand }
 	| { type: 'SET_CURRENT_CARD_DATA'; payload: CurrentCard }
+	| { type: 'SET_WAS_GUESSED_CORRECTLY'; payload: boolean }
 	| { type: 'START_GAME' };
 
 // api responses

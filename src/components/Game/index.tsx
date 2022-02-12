@@ -4,9 +4,6 @@ import axios from 'axios';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
 
-// api
-import { getBand, getMagicCard } from '../../api/functions';
-
 // components
 import Answer from '../Answer';
 import Error from '../Error';
@@ -17,7 +14,13 @@ import Question from '../Question';
 import { Wrapper } from '../UI/Wrapper';
 
 // actions
-import { restartGame, setCorrectAnswer, setIsLoading } from '../../actions/game';
+import {
+	restartGame,
+	setCorrectAnswer,
+	setCurrentBandData,
+	setCurrentCardData,
+	setIsLoading
+} from '../../actions/game';
 
 // constants
 import { MAGIC_CARD, METAL_BAND } from '../../constants/constants';
@@ -44,11 +47,11 @@ const Game = () => {
 		dispatch(setIsLoading());
 
 		if (chosenValue === 'magic-card') {
-			getMagicCard(dispatch);
+			dispatch(setCurrentCardData());
 		}
 
 		if (chosenValue === 'metal-band') {
-			getBand(bands, credentials, dispatch);
+			dispatch(setCurrentBandData(bands, credentials));
 		}
 	};
 

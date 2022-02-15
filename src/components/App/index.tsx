@@ -22,7 +22,7 @@ import bands from '../../data/bands';
 import { LOCAL_STORAGE_KEY } from '../../constants/constants';
 
 // types
-import { CombinedAppState, GameState } from '../../types/types';
+import { type CombinedAppState, type GameState } from '../../types/types';
 
 const App = () => {
 	const game = useSelector<CombinedAppState, GameState>((state) => state.game);

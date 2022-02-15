@@ -1,4 +1,6 @@
 import React from 'react';
+
+// material ui components
 import { CircularProgress } from '@material-ui/core';
 
 // styled components

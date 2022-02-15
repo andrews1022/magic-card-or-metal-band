@@ -1,4 +1,4 @@
-import { CombinedState } from 'redux';
+import { type CombinedState } from 'redux';
 
 // valid answers
 export type ValidAnswers = 'magic-card' | 'metal-band';

@@ -1,11 +1,11 @@
 // redux types
-import { Dispatch } from 'redux';
+import { type Dispatch } from 'redux';
 
 // constants
 import { LOCAL_STORAGE_KEY } from '../constants/constants';
 
 // custom types
-import { BandsActions } from '../types/types';
+import { type BandsActions } from '../types/types';
 
 export const setLocalStorageData = (arr: string[]) => (dispatch: Dispatch<BandsActions>) => {
 	const bandsFromLocalStorage = localStorage.getItem(LOCAL_STORAGE_KEY);

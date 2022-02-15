@@ -26,7 +26,12 @@ import {
 import { MAGIC_CARD, METAL_BAND } from '../../constants/constants';
 
 // types
-import { BandsState, CombinedAppState, CredentialsState, GameState } from '../../types/types';
+import {
+	type BandsState,
+	type CombinedAppState,
+	type CredentialsState,
+	type GameState
+} from '../../types/types';
 
 const Game = () => {
 	// grabbing various pieces of state from redux store

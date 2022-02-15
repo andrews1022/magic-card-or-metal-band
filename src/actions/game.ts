@@ -1,21 +1,21 @@
 /* eslint-disable operator-linebreak */
 
 // redux types
-import { Dispatch } from 'redux';
+import { type Dispatch } from 'redux';
 
 // api functions
 import { getBand, getMagicCard } from '../api/functions';
 
 // custom types
 import {
-	BandsState,
-	CredentialsState,
-	CurrentBand,
-	CurrentCard,
-	GameActions,
-	ScryfallResponse,
-	SpotifySearchResponse,
-	ValidAnswers
+	type BandsState,
+	type CredentialsState,
+	type CurrentBand,
+	type CurrentCard,
+	type GameActions,
+	type ScryfallResponse,
+	type SpotifySearchResponse,
+	type ValidAnswers
 } from '../types/types';
 
 // async actions

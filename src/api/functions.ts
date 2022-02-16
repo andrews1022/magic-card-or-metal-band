@@ -8,7 +8,7 @@ import { scryfallApiUrl, spotifyApiUrl, spotifyTokenUrl } from './urls';
 import { getRandomBand } from '../utils/getRandomBand';
 
 // custom types
-import { type BandsState, type CredentialsState } from '../types/types';
+import type { BandsState, CredentialsState } from '../types/types';
 
 // used in: src/actions/credentials.ts
 export const getSpotifyAuthToken = () => {

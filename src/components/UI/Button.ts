@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 // types
-import { ThemeColor } from '../../types/types';
+import type { ThemeColor } from '../../types/types';
 
 export const Button = styled.button<ThemeColor>`
 	display: inline-flex;

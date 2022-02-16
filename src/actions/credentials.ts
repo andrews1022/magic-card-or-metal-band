@@ -1,11 +1,9 @@
-// redux types
-import { type Dispatch } from 'redux';
+// types
+import type { Dispatch } from 'redux';
+import type { CredentialsActions } from '../types/types';
 
 // api
 import { getSpotifyAuthToken } from '../api/functions';
-
-// custom types
-import { type CredentialsActions } from '../types/types';
 
 export const setAuthToken = () => async (dispatch: Dispatch<CredentialsActions>) => {
 	try {

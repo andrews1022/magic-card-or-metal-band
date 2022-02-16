@@ -15,7 +15,7 @@ import useImage from '../../hooks/useImage';
 import useName from '../../hooks/useName';
 
 // types
-import { type CombinedAppState, type GameState } from '../../types/types';
+import type { CombinedAppState, GameState } from '../../types/types';
 
 // props
 type AnswerProps = {

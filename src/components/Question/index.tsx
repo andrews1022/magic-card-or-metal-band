@@ -1,4 +1,5 @@
-import React, { type MouseEvent } from 'react';
+import React from 'react';
+import type { MouseEvent } from 'react';
 
 // material ui icons
 import CropPortraitIcon from '@material-ui/icons/CropPortrait';
@@ -19,7 +20,7 @@ import { Button } from '../UI/Button';
 import { MAGIC_CARD, METAL_BAND } from '../../constants/constants';
 
 // types
-import { type CombinedAppState, type GameState } from '../../types/types';
+import type { CombinedAppState, GameState } from '../../types/types';
 
 const Question = () => {
 	// grabbing various pieces of state from redux store

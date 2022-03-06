@@ -6,11 +6,11 @@ import type { CredentialsActions } from '../types/types';
 import { getSpotifyAuthToken } from '../api/functions';
 
 export const setAuthToken = () => async (dispatch: Dispatch<CredentialsActions>) => {
-	try {
-		const resp = await getSpotifyAuthToken();
+  try {
+    const resp = await getSpotifyAuthToken();
 
-		dispatch({ type: 'SET_AUTH_TOKEN', payload: resp.data.access_token });
-	} catch (error) {
-		console.log(error);
-	}
+    dispatch({ type: 'SET_AUTH_TOKEN', payload: resp.data.access_token });
+  } catch (error) {
+    console.log(error);
+  }
 };

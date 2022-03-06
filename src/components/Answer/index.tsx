@@ -19,38 +19,38 @@ import type { CombinedAppState, GameState } from '../../types/types';
 
 // props
 type AnswerProps = {
-	gameRestartHandler: () => void;
+  gameRestartHandler: () => void;
 };
 
 const Answer = ({ gameRestartHandler }: AnswerProps) => {
-	const game = useSelector<CombinedAppState, GameState>((state) => state.game);
+  const game = useSelector<CombinedAppState, GameState>((state) => state.game);
 
-	const answerColor = game.wasGuessedCorrectly ? 'jungleGreen' : 'rouge';
+  const answerColor = game.wasGuessedCorrectly ? 'jungleGreen' : 'rouge';
 
-	// set some vars to make jsx cleaner
-	const imageToUse = useImage();
-	const nameToUse = useName();
+  // set some vars to make jsx cleaner
+  const imageToUse = useImage();
+  const nameToUse = useName();
 
-	return (
-		<S.Wrapper isInView={game.hasSelected}>
-			<p>
-				Your answer was{' '}
-				<S.Correct color={answerColor}>
-					{game.wasGuessedCorrectly ? 'Correct!' : 'Incorrect!'}
-				</S.Correct>
-			</p>
+  return (
+    <S.Wrapper isInView={game.hasSelected}>
+      <p>
+        Your answer was{' '}
+        <S.Correct color={answerColor}>
+          {game.wasGuessedCorrectly ? 'Correct!' : 'Incorrect!'}
+        </S.Correct>
+      </p>
 
-			<p>
-				<S.Name>{nameToUse}</S.Name> is a <S.Type>{game.correctAnswer.replace('-', ' ')}</S.Type>!
-			</p>
+      <p>
+        <S.Name>{nameToUse}</S.Name> is a <S.Type>{game.correctAnswer.replace('-', ' ')}</S.Type>!
+      </p>
 
-			<S.Image src={imageToUse} alt={nameToUse} />
+      <S.Image src={imageToUse} alt={nameToUse} />
 
-			<Button color={answerColor} onClick={gameRestartHandler} type='button'>
-				<RefreshIcon fontSize='large' /> {game.wasGuessedCorrectly ? 'Another One!' : 'Try Again?'}
-			</Button>
-		</S.Wrapper>
-	);
+      <Button color={answerColor} onClick={gameRestartHandler} type='button'>
+        <RefreshIcon fontSize='large' /> {game.wasGuessedCorrectly ? 'Another One!' : 'Try Again?'}
+      </Button>
+    </S.Wrapper>
+  );
 };
 
 export default Answer;

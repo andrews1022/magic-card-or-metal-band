@@ -3,24 +3,24 @@
 import type { CredentialsActions, CredentialsState } from '../types/types';
 
 const initialCredentialsState: CredentialsState = {
-	authToken: ''
+  authToken: ''
 };
 
 const credentialsReducer = (
-	state: CredentialsState = initialCredentialsState,
-	action: CredentialsActions
+  state: CredentialsState = initialCredentialsState,
+  action: CredentialsActions
 ): CredentialsState => {
-	switch (action.type) {
-		case 'SET_AUTH_TOKEN': {
-			return {
-				authToken: action.payload
-			};
-		}
+  switch (action.type) {
+    case 'SET_AUTH_TOKEN': {
+      return {
+        authToken: action.payload
+      };
+    }
 
-		default: {
-			return state;
-		}
-	}
+    default: {
+      return state;
+    }
+  }
 };
 
 export default credentialsReducer;

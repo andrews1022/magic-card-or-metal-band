@@ -14,13 +14,13 @@ import App from './components/App';
 import store from './store/store';
 
 ReactDOM.render(
-	<StrictMode>
-		<Provider store={store}>
-			<ThemeProvider theme={theme}>
-				<GlobalStyle />
-				<App />
-			</ThemeProvider>
-		</Provider>
-	</StrictMode>,
-	document.getElementById('root')
+  <StrictMode>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <App />
+      </ThemeProvider>
+    </Provider>
+  </StrictMode>,
+  document.getElementById('root')
 );

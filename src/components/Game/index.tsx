@@ -15,11 +15,11 @@ import { Wrapper } from '../UI/Wrapper';
 
 // actions
 import {
-	restartGame,
-	setCorrectAnswer,
-	setCurrentBandData,
-	setCurrentCardData,
-	setIsLoading
+  restartGame,
+  setCorrectAnswer,
+  setCurrentBandData,
+  setCurrentCardData,
+  setIsLoading
 } from '../../actions/game';
 
 // constants
@@ -29,61 +29,61 @@ import { MAGIC_CARD, METAL_BAND } from '../../constants/constants';
 import type { BandsState, CombinedAppState, CredentialsState, GameState } from '../../types/types';
 
 const Game = () => {
-	// grabbing various pieces of state from redux store
-	const bands = useSelector<CombinedAppState, BandsState>((state) => state.bands);
-	const credentials = useSelector<CombinedAppState, CredentialsState>((state) => state.credentials);
-	const game = useSelector<CombinedAppState, GameState>((state) => state.game);
+  // grabbing various pieces of state from redux store
+  const bands = useSelector<CombinedAppState, BandsState>((state) => state.bands);
+  const credentials = useSelector<CombinedAppState, CredentialsState>((state) => state.credentials);
+  const game = useSelector<CombinedAppState, GameState>((state) => state.game);
 
-	// dispatch hook call
-	const dispatch = useDispatch();
+  // dispatch hook call
+  const dispatch = useDispatch();
 
-	// init game fn (run on component mount and in gameRestartHandler function below)
-	const initGame = () => {
-		// randomly decide between either magic-card or metal-band
-		const chosenValue = Math.random() < 0.5 ? MAGIC_CARD : METAL_BAND;
-		dispatch(setCorrectAnswer(chosenValue));
+  // init game fn (run on component mount and in gameRestartHandler function below)
+  const initGame = () => {
+    // randomly decide between either magic-card or metal-band
+    const chosenValue = Math.random() < 0.5 ? MAGIC_CARD : METAL_BAND;
+    dispatch(setCorrectAnswer(chosenValue));
 
-		// set is loading to true (temporarily)
-		dispatch(setIsLoading());
+    // set is loading to true (temporarily)
+    dispatch(setIsLoading());
 
-		if (chosenValue === 'magic-card') {
-			dispatch(setCurrentCardData());
-		}
+    if (chosenValue === 'magic-card') {
+      dispatch(setCurrentCardData());
+    }
 
-		if (chosenValue === 'metal-band') {
-			dispatch(setCurrentBandData(bands, credentials));
-		}
-	};
+    if (chosenValue === 'metal-band') {
+      dispatch(setCurrentBandData(bands, credentials));
+    }
+  };
 
-	// decide either magic card or metal band, then make appropiate api get request
-	useEffect(() => {
-		const source = axios.CancelToken.source();
+  // decide either magic card or metal band, then make appropiate api get request
+  useEffect(() => {
+    const source = axios.CancelToken.source();
 
-		initGame();
+    initGame();
 
-		// cleanup
-		return () => {
-			source.cancel();
-		};
-	}, []);
+    // cleanup
+    return () => {
+      source.cancel();
+    };
+  }, []);
 
-	const gameRestartHandler = () => {
-		dispatch(restartGame());
+  const gameRestartHandler = () => {
+    dispatch(restartGame());
 
-		initGame();
-	};
+    initGame();
+  };
 
-	// return either of these first if/when applicable
-	if (game.failedToFetch) return <Error />;
-	if (game.isLoading) return <Loading />;
+  // return either of these first if/when applicable
+  if (game.failedToFetch) return <Error />;
+  if (game.isLoading) return <Loading />;
 
-	return (
-		<Wrapper>
-			<Question />
+  return (
+    <Wrapper>
+      <Question />
 
-			<Answer gameRestartHandler={gameRestartHandler} />
-		</Wrapper>
-	);
+      <Answer gameRestartHandler={gameRestartHandler} />
+    </Wrapper>
+  );
 };
 
 export default Game;

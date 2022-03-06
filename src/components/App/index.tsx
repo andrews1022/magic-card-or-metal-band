@@ -25,39 +25,39 @@ import { LOCAL_STORAGE_KEY } from '../../constants/constants';
 import type { CombinedAppState, GameState } from '../../types/types';
 
 const App = () => {
-	const game = useSelector<CombinedAppState, GameState>((state) => state.game);
+  const game = useSelector<CombinedAppState, GameState>((state) => state.game);
 
-	const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-	// set spotify auth token (needed for all future get requests)
-	useEffect(() => {
-		const source = axios.CancelToken.source();
+  // set spotify auth token (needed for all future get requests)
+  useEffect(() => {
+    const source = axios.CancelToken.source();
 
-		dispatch(setAuthToken());
+    dispatch(setAuthToken());
 
-		// cleanup
-		return () => {
-			source.cancel();
-		};
-	}, []);
+    // cleanup
+    return () => {
+      source.cancel();
+    };
+  }, []);
 
-	// load / set band data from local storage
-	useEffect(() => {
-		dispatch(setLocalStorageData(bands));
+  // load / set band data from local storage
+  useEffect(() => {
+    dispatch(setLocalStorageData(bands));
 
-		// cleanup
-		return () => {
-			localStorage.removeItem(LOCAL_STORAGE_KEY);
-		};
-	}, []);
+    // cleanup
+    return () => {
+      localStorage.removeItem(LOCAL_STORAGE_KEY);
+    };
+  }, []);
 
-	return (
-		<>
-			{game.isGameBeingPlayed ? <Game /> : <Start />}
+  return (
+    <>
+      {game.isGameBeingPlayed ? <Game /> : <Start />}
 
-			<Footer />
-		</>
-	);
+      <Footer />
+    </>
+  );
 };
 
 export default App;

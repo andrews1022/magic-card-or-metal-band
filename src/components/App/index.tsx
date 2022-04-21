@@ -1,7 +1,4 @@
-import React, { useEffect } from 'react';
-
-// axios
-import axios from 'axios';
+import { useEffect } from 'react';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -31,13 +28,13 @@ const App = () => {
 
   // set spotify auth token (needed for all future get requests)
   useEffect(() => {
-    const source = axios.CancelToken.source();
+    const controller = new AbortController();
 
     dispatch(setAuthToken());
 
     // cleanup
     return () => {
-      source.cancel();
+      controller.abort();
     };
   }, []);
 

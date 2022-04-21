@@ -1,51 +1,52 @@
-import axios from 'axios';
 import { Buffer } from 'buffer';
 
 // api endpoints
-import { scryfallApiUrl, spotifyApiUrl, spotifyTokenUrl } from './urls';
+import { scryfallApiUrl, spotifyApiUrl, spotifyTokenUrl } from './endpoints';
 
 // utils
 import { getRandomBand } from '../utils/getRandomBand';
 
 // custom types
 import type { ScryfallResponse } from '../types/scryfall';
+import type { SpotifyAuthResponse, SpotifySearchResponse } from '../types/spotify';
 import type { BandsState, CredentialsState } from '../types/state';
 
 // used in: src/actions/credentials.ts
-export const getSpotifyAuthToken = () => {
+export const getSpotifyAuthToken = async () => {
   // store env string for Authorization header below
   const envString = `${process.env.REACT_APP_SPOTIFY_CLIENT_ID}:${process.env.REACT_APP_SPOTIFY_CLIENT_SECRET}`;
 
-  // prepare data string for axios call
-  const data = 'grant_type=client_credentials';
-
-  // prepare config obj for axios call
-  const config = {
+  const resp = await fetch(spotifyTokenUrl, {
+    body: 'grant_type=client_credentials',
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: `Basic ${Buffer.from(`${envString}`).toString('base64')}`
-    }
-  };
+      Authorization: `Basic ${Buffer.from(`${envString}`).toString('base64')}`,
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    method: 'POST'
+  });
 
-  return axios.post(spotifyTokenUrl, data, config);
+  const data: SpotifyAuthResponse = await resp.json();
+
+  return data;
 };
 
 // used in: src/actions/game.ts
-export const getBand = (bands: BandsState, credentials: CredentialsState) => {
+export const getBand = async (bands: BandsState, credentials: CredentialsState) => {
   // get random band for url
   const randomBand = getRandomBand(bands);
 
-  // prepare url for axios call
+  // prepare url for fetch
   const url = `${spotifyApiUrl}?q=${randomBand}&type=artist`;
 
-  // prepare config obj for axios call
-  const config = {
+  const resp = await fetch(url, {
     headers: {
       Authorization: `Bearer ${credentials.authToken}`
     }
-  };
+  });
 
-  return axios.get(url, config);
+  const data: SpotifySearchResponse = await resp.json();
+
+  return data;
 };
 
 // used in: src/actions/game.ts

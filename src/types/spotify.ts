@@ -1,3 +1,9 @@
+export type SpotifyAuthResponse = {
+  access_token: string;
+  expires_in: number;
+  token_type: string;
+};
+
 export type SpotifyBandImage = {
   height: number;
   url: string;
@@ -23,15 +29,13 @@ export type SpotifyBandResponse = {
 };
 
 export type SpotifySearchResponse = {
-  data: {
-    artists: {
-      href: string;
-      items: never[] | SpotifyBandResponse[];
-      limit: number;
-      next: string | null;
-      offset: number;
-      previous: string | null;
-      total: number;
-    };
+  artists: {
+    href: string;
+    items: never[] | SpotifyBandResponse[];
+    limit: number;
+    next: string | null;
+    offset: number;
+    previous: string | null;
+    total: number;
   };
 };

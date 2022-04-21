@@ -10,8 +10,9 @@ export const setAuthToken = () => async (dispatch: Dispatch<CredentialsActions>)
   try {
     const resp = await getSpotifyAuthToken();
 
-    dispatch({ type: 'SET_AUTH_TOKEN', payload: resp.data.access_token });
+    dispatch({ type: 'SET_AUTH_TOKEN', payload: resp.access_token });
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.log(error);
   }
 };

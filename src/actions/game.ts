@@ -3,7 +3,6 @@
 // custom types
 import { type Dispatch } from 'redux';
 import type { ValidAnswers } from '../types/global';
-import type { SpotifySearchResponse } from '../types/spotify';
 import type { GameActions } from '../types/actions';
 import type { CurrentBand, CurrentCard } from '../types/current';
 import type { BandsState, CredentialsState } from '../types/state';
@@ -15,7 +14,7 @@ import { getBand, getMagicCard } from '../api/functions';
 export const setCurrentBandData =
   (bands: BandsState, credentials: CredentialsState) => async (dispatch: Dispatch<GameActions>) => {
     try {
-      const { data }: SpotifySearchResponse = await getBand(bands, credentials);
+      const data = await getBand(bands, credentials);
 
       const matchingBand = data.artists.items[0];
 

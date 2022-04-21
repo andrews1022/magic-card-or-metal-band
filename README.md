@@ -11,16 +11,10 @@ APIs being used:
 - Scryfall: https://scryfall.com/docs/api
 - Spotify: https://developer.spotify.com/documentation/web-api/
 
-## Refactor's To-Do
-
-- [ ] Re-evaluate hooks as util functions
-- [ ] See if there is a way to exclude certain card types from the Scryfall API request (tokens, emblems, etc.)
-- [ ] Include "Both" option when selecting
-
 ## API / Action Reminder:
 
-- functions inside api/functions.ts should return axios call
-- actions inside actions/[FILE].ts should be:
+- functions inside `api/functions.ts` should return fetch call
+- actions inside `actions/[FILE].ts` should be:
   - async
   - call the api function
   - dispatch data

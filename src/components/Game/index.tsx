@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import axios from 'axios';
+import { useEffect } from 'react';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,7 +9,7 @@ import Error from '../Error';
 import Loading from '../Loading';
 import Question from '../Question';
 
-// styled
+// styled components
 import { Wrapper } from '../UI/Wrapper';
 
 // actions
@@ -57,13 +56,13 @@ const Game = () => {
 
   // decide either magic card or metal band, then make appropiate api get request
   useEffect(() => {
-    const source = axios.CancelToken.source();
+    const controller = new AbortController();
 
     initGame();
 
     // cleanup
     return () => {
-      source.cancel();
+      controller.abort();
     };
   }, []);
 

@@ -1,5 +1,7 @@
 import { useSelector } from 'react-redux';
-import type { CombinedAppState, GameState } from '../types/types';
+
+// custom types
+import { CombinedAppState, GameState } from '../types/state';
 
 const useImage = (): string => {
   const game = useSelector<CombinedAppState, GameState>((state) => state.game);

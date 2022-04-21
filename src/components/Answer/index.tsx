@@ -14,8 +14,8 @@ import { Button } from '../UI/Button';
 import useImage from '../../hooks/useImage';
 import useName from '../../hooks/useName';
 
-// types
-import type { CombinedAppState, GameState } from '../../types/types';
+// custom types
+import type { CombinedAppState, GameState } from '../../types/state';
 
 // props
 type AnswerProps = {

@@ -1,6 +1,8 @@
 /* eslint-disable default-param-last */
 
-import type { CredentialsActions, CredentialsState } from '../types/types';
+// custom types
+import type { CredentialsActions } from '../types/actions';
+import type { CredentialsState } from '../types/state';
 
 const initialCredentialsState: CredentialsState = {
   authToken: ''

@@ -19,8 +19,8 @@ import { Button } from '../UI/Button';
 // constants
 import { MAGIC_CARD, METAL_BAND } from '../../constants/constants';
 
-// types
-import type { CombinedAppState, GameState } from '../../types/types';
+// custom types
+import type { CombinedAppState, GameState } from '../../types/state';
 
 const Question = () => {
   // grabbing various pieces of state from redux store

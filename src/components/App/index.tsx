@@ -21,8 +21,8 @@ import bands from '../../data/bands';
 // constants
 import { LOCAL_STORAGE_KEY } from '../../constants/constants';
 
-// types
-import type { CombinedAppState, GameState } from '../../types/types';
+// custom types
+import type { CombinedAppState, GameState } from '../../types/state';
 
 const App = () => {
   const game = useSelector<CombinedAppState, GameState>((state) => state.game);

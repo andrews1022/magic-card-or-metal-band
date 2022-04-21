@@ -8,7 +8,8 @@ import { scryfallApiUrl, spotifyApiUrl, spotifyTokenUrl } from './urls';
 import { getRandomBand } from '../utils/getRandomBand';
 
 // custom types
-import type { BandsState, CredentialsState } from '../types/types';
+import type { ScryfallResponse } from '../types/scryfall';
+import type { BandsState, CredentialsState } from '../types/state';
 
 // used in: src/actions/credentials.ts
 export const getSpotifyAuthToken = () => {
@@ -48,4 +49,9 @@ export const getBand = (bands: BandsState, credentials: CredentialsState) => {
 };
 
 // used in: src/actions/game.ts
-export const getMagicCard = () => axios.get(scryfallApiUrl);
+export const getMagicCard = async () => {
+  const resp = await fetch(scryfallApiUrl);
+  const data: ScryfallResponse = await resp.json();
+
+  return data;
+};

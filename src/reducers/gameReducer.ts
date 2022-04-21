@@ -1,6 +1,7 @@
 /* eslint-disable default-param-last */
 
-import type { GameActions, GameState } from '../types/types';
+import type { GameActions } from '../types/actions';
+import type { GameState } from '../types/state';
 
 const intialGameState: GameState = {
   isGameBeingPlayed: false,

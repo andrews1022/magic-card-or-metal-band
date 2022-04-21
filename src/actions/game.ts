@@ -1,17 +1,12 @@
 /* eslint-disable operator-linebreak */
 
-// types
+// custom types
 import { type Dispatch } from 'redux';
-import type {
-  BandsState,
-  CredentialsState,
-  CurrentBand,
-  CurrentCard,
-  GameActions,
-  ScryfallResponse,
-  SpotifySearchResponse,
-  ValidAnswers
-} from '../types/types';
+import type { ValidAnswers } from '../types/global';
+import type { SpotifySearchResponse } from '../types/spotify';
+import type { GameActions } from '../types/actions';
+import type { CurrentBand, CurrentCard } from '../types/current';
+import type { BandsState, CredentialsState } from '../types/state';
 
 // api functions
 import { getBand, getMagicCard } from '../api/functions';
@@ -32,15 +27,13 @@ export const setCurrentBandData =
 
       dispatch({ type: 'SET_CURRENT_BAND_DATA', payload: currentBand });
     } catch (error) {
-      console.log(error);
-
       dispatch({ type: 'FAILED_TO_FETCH' });
     }
   };
 
 export const setCurrentCardData = () => async (dispatch: Dispatch<GameActions>) => {
   try {
-    const { data }: ScryfallResponse = await getMagicCard();
+    const data = await getMagicCard();
 
     // prepare the currentcard data as required
     const currentCard: CurrentCard = {
@@ -51,8 +44,6 @@ export const setCurrentCardData = () => async (dispatch: Dispatch<GameActions>) 
 
     dispatch({ type: 'SET_CURRENT_CARD_DATA', payload: currentCard });
   } catch (error) {
-    console.log(error);
-
     dispatch({ type: 'FAILED_TO_FETCH' });
   }
 };

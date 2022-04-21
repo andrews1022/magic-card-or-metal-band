@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 // types
-import type { ThemeColor } from '../../types/types';
+import type { ThemeColor } from '../../types/global';
 
 // props
 type WrapperProps = {

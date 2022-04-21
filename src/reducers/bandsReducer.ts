@@ -1,6 +1,8 @@
 /* eslint-disable default-param-last */
 
-import type { BandsActions, BandsState } from '../types/types';
+// custom types
+import type { BandsActions } from '../types/actions';
+import type { BandsState } from '../types/state';
 
 const initialBandsState: BandsState = {
   bands: []

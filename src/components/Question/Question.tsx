@@ -1,4 +1,3 @@
-import React from 'react';
 import type { MouseEvent } from 'react';
 
 // material ui icons
@@ -13,7 +12,7 @@ import { setWasGuessedCorrectly } from '../../actions/game';
 import useName from '../../hooks/useName';
 
 // styled components
-import * as S from './styles';
+import * as S from './Question.styles';
 import { Button } from '../UI/Button';
 
 // constants

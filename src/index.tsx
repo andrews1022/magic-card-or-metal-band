@@ -8,7 +8,7 @@ import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/theme';
 
 // components
-import App from './components/App';
+import App from './components/App/App';
 
 // redux store
 import store from './store/store';

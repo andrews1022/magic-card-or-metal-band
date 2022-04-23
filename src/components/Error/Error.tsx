@@ -1,7 +1,3 @@
-/* eslint-disable no-restricted-globals */
-
-import React from 'react';
-
 // material icons
 import RefreshIcon from '@material-ui/icons/Refresh';
 
@@ -12,6 +8,7 @@ import { Wrapper } from '../UI/Wrapper';
 
 const Error = () => {
   const refreshHandler = () => {
+    // eslint-disable-next-line no-restricted-globals
     location.reload();
   };
 

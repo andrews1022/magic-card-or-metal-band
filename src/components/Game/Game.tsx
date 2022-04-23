@@ -4,10 +4,10 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // components
-import Answer from '../Answer';
-import Error from '../Error';
-import Loading from '../Loading';
-import Question from '../Question';
+import Answer from '../Answer/Answer';
+import Error from '../Error/Error';
+import Loading from '../Loading/Loading';
+import Question from '../Question/Question';
 
 // styled components
 import { Wrapper } from '../UI/Wrapper';

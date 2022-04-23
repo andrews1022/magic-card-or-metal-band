@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-// types
+// custom types
 import type { ThemeColor } from '../../types/global';
 
-// props
+// props type
 type WrapperProps = {
   isInView: boolean;
 };

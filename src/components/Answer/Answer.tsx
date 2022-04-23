@@ -1,5 +1,3 @@
-import React from 'react';
-
 // material icons
 import RefreshIcon from '@material-ui/icons/Refresh';
 
@@ -7,7 +5,7 @@ import RefreshIcon from '@material-ui/icons/Refresh';
 import { useSelector } from 'react-redux';
 
 // styled components
-import * as S from './styles';
+import * as S from './Answer.styles';
 import { Button } from '../UI/Button';
 
 // custom hooks
@@ -17,7 +15,7 @@ import useName from '../../hooks/useName';
 // custom types
 import type { CombinedAppState, GameState } from '../../types/state';
 
-// props
+// props type
 type AnswerProps = {
   gameRestartHandler: () => void;
 };

@@ -8,9 +8,9 @@ import { setAuthToken } from '../../actions/credentials';
 import { setLocalStorageData } from '../../actions/bands';
 
 // components
-import Footer from '../Footer';
-import Game from '../Game';
-import Start from '../Start';
+import Footer from '../Footer/Footer';
+import Game from '../Game/Game';
+import Start from '../Start/Start';
 
 // data
 import bands from '../../data/bands';

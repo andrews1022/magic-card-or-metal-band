@@ -1,7 +1,5 @@
-import React from 'react';
-
 // styled components
-import * as S from './styles';
+import * as S from './Footer.styles';
 
 const Footer = () => (
   <S.Footer>

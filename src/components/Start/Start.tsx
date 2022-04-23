@@ -1,5 +1,3 @@
-import React from 'react';
-
 // material icons
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 

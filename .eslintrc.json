@@ -3,7 +3,12 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["airbnb", "plugin:react/recommended", "plugin:@typescript-eslint/recommended"],
+  "extends": [
+    "airbnb",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
@@ -33,7 +38,7 @@
     "import/prefer-default-export": "off",
     "indent": "warn",
     "jsx-a11y/heading-has-content": "warn",
-    "jsx-quotes": ["warn", "prefer-single"],
+    "jsx-quotes": ["warn", "prefer-double"],
     "keyword-spacing": "warn",
     "linebreak-style": "off",
     "max-len": "warn",
@@ -46,8 +51,8 @@
     "no-trailing-spaces": "warn",
     "no-undef": "warn",
     "no-underscore-dangle": "warn",
-    "no-unused-vars": "warn",
     "no-use-before-define": "off",
+    "no-useless-rename": "warn",
     "no-useless-return": "warn",
     "object-curly-newline": "off",
     "object-curly-spacing": "warn",
@@ -56,7 +61,7 @@
     "padded-blocks": "warn",
     "prefer-const": "warn",
     "prefer-destructuring": "warn",
-    "quotes": "off",
+    "quotes": ["warn", "double"],
     "radix": "warn",
     "react/function-component-definition": [2, { "namedComponents": "arrow-function" }],
     "react/jsx-boolean-value": "warn",
@@ -73,6 +78,7 @@
     "react/jsx-tag-spacing": "warn",
     "react/jsx-uses-react": "off",
     "react/no-unused-prop-types": "warn",
+    "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
     "react/require-default-props": "off",
     "react/self-closing-comp": "warn",
@@ -82,6 +88,7 @@
     "space-in-parens": "warn",
     "spaced-comment": "warn",
     "switch-colon-spacing": "warn",
-    "@typescript-eslint/no-use-before-define": ["warn"]
+    "@typescript-eslint/no-use-before-define": ["warn"],
+    "@typescript-eslint/no-unused-vars": ["warn"]
   }
 }
